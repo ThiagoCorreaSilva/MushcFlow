@@ -74,6 +74,7 @@ CMakeLists.txt.user*
 *.exe
 
 CMakeLists.txt.user
+.git/
 
 # Directories with generated files
 .moc/

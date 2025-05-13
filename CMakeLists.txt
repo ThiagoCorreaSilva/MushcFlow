@@ -27,10 +27,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         first_open_config.hpp first_open_config.cpp first_open_config.ui
 
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET MushcFlow APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
         add_library(MushcFlow SHARED

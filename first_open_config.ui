@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>598</width>
     <height>250</height>
    </rect>
   </property>
@@ -17,18 +17,18 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>30</y>
+     <y>0</y>
      <width>601</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>15</pointsize>
+     <pointsize>13</pointsize>
     </font>
    </property>
    <property name="text">
-    <string>Select a folder to MushcFlow!</string>
+    <string>Configure MushcFlow!</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -37,11 +37,23 @@
   <widget class="QPushButton" name="select_folder_button">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>110</y>
-     <width>161</width>
-     <height>41</height>
+     <x>440</x>
+     <y>40</y>
+     <width>150</width>
+     <height>45</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>500</height>
+    </size>
    </property>
    <property name="text">
     <string> Select folder</string>
@@ -53,11 +65,17 @@
   <widget class="QLabel" name="folder_label">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>110</y>
+     <x>100</x>
+     <y>50</y>
      <width>341</width>
-     <height>41</height>
+     <height>21</height>
     </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>200</height>
+    </size>
    </property>
    <property name="font">
     <font>
@@ -87,11 +105,17 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>110</y>
-     <width>71</width>
-     <height>41</height>
+     <x>19</x>
+     <y>50</y>
+     <width>66</width>
+     <height>19</height>
     </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>75</width>
+     <height>200</height>
+    </size>
    </property>
    <property name="font">
     <font>
@@ -103,6 +127,45 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="language_box">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>100</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string notr="true">English</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string notr="true">Portuguese</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>81</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Language: </string>
    </property>
   </widget>
  </widget>

@@ -4,6 +4,7 @@
 
 #include <QStandardPaths>
 #include <QJsonDocument>
+#include <QTranslator>
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QFileDialog>
@@ -37,6 +38,7 @@ class First_Open_Config : public QDialog
 
         QString m_app_dir_path;
         QString m_songs_dir_path;
+        QString m_app_language;
 
         Logs log;
 

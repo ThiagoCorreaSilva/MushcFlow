@@ -8,7 +8,7 @@ First_Open_Config::First_Open_Config(QWidget *parent) :
     ui->setupUi(this);
 
     // Dont allow user close the dialog
-    setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
+    //setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
 }
 
 First_Open_Config::~First_Open_Config()
@@ -28,18 +28,19 @@ void First_Open_Config::on_confirm_button_clicked()
 {
     if (ui->folder_label->text().isEmpty())
     {
-        QMessageBox::warning( this, "Empty folder!", "Please select a folder!" );
+        QMessageBox::warning( this, tr("Empty folder!"), tr("Please select a folder!") );
         return;
     }
 
     m_app_dir_path = ui->folder_label->text() + "/" + m_app_dir_name;
     m_songs_dir_path = m_app_dir_path + "/" + m_songs_dir_name;
 
-    auto result = QMessageBox::question( this, "Confirm", "You want to use: \"" + m_app_dir_path + "\" for MushcFlow folder?",
+    auto result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + m_app_dir_path + tr("\" for MushcFlow folder?"),
                   QMessageBox::Yes | QMessageBox::No );
 
     if (result == QMessageBox::Yes)
     {
+        m_app_language = ui->language_box->currentText();
         create_config_file();
         return;
     }
@@ -72,6 +73,7 @@ void First_Open_Config::create_config_file()
 
     object["app_dir"] = m_app_dir_path;
     object["songs_dir"] = m_songs_dir_path;
+    object["language"] = m_app_language;
 
     document.setObject( object );
 

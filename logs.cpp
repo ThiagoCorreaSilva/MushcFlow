@@ -52,4 +52,5 @@ void Logs::create_directory()
     }
 
     log_dir.mkdir( "Logs" );
+    qDebug() << "LOG FOLDER CREATED SUCCESSFULLY";
 }

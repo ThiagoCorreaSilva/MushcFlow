@@ -29,7 +29,7 @@
     <set>Qt::AlignmentFlag::AlignCenter</set>
    </property>
    <property name="placeholderText">
-    <string>Put song URL here</string>
+    <string>🔗 Put song URL here</string>
    </property>
   </widget>
   <widget class="QPushButton" name="download_button">
@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Download</string>
+    <string>⬇️ Download</string>
    </property>
   </widget>
   <widget class="QFrame" name="frame">
@@ -65,7 +65,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>61</width>
+      <width>81</width>
       <height>41</height>
      </rect>
     </property>
@@ -81,9 +81,9 @@
    <widget class="QLabel" name="status_label">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>90</x>
       <y>0</y>
-      <width>421</width>
+      <width>391</width>
       <height>41</height>
      </rect>
     </property>
@@ -120,7 +120,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>111</width>
+      <width>121</width>
       <height>41</height>
      </rect>
     </property>
@@ -136,9 +136,9 @@
    <widget class="QLabel" name="downloader_folder_label">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>140</x>
       <y>0</y>
-      <width>361</width>
+      <width>341</width>
       <height>41</height>
      </rect>
     </property>

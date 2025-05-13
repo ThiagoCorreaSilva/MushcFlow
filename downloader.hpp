@@ -2,6 +2,7 @@
 
 #include <QDialog>
 
+#include <QtConcurrent/QtConcurrent>
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QMessageBox>
@@ -33,7 +34,8 @@ class Downloader : public QDialog
 		QString m_songs_dir_path;
 		QString m_app_dir_path;
 
-		Logs log;
+        Logs log;
+        bool m_on_download;
 
 		void read_config_file();
 		void start_download();

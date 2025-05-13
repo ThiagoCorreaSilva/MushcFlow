@@ -57,17 +57,21 @@ void Downloader::read_config_file()
 
 void Downloader::on_download_button_clicked()
 {
+    if (m_on_download) return;
+
 	if (ui->url_input->text().isEmpty())
 	{
 		QMessageBox::warning( this, tr("Empty URL!"), tr("You need to put a valid URL!"));
 		return;
-	}
+    }
 
 	start_download();
 }
 
 void Downloader::start_download()
 {
+    m_on_download = true;
+
 	QString system_type = QSysInfo::productType();
 	QString yt_dlp_path = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
 	QString yt_dlp_flags = yt_dlp_path + " --ies all,-generic -x --audio-format mp3 -o ";
@@ -97,9 +101,11 @@ void Downloader::start_download()
 		error_list.push_back( error_2 );
 		log.create_log( error_list, ERROR_TYPE::NON_FATAL );
 
+        m_on_download = false;
 		return;
 	}
 
-	ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
+    ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
+    m_on_download = false;
 
 }

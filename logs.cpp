@@ -11,7 +11,7 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error,
 
     if (!log_file.open( QFile::WriteOnly | QFile::Text ))
     {
-        //exit(EXIT_FAILURE);
+        return;
     }
 
     QTextStream output( &log_file );

@@ -4,7 +4,10 @@
 
 #include <QJsonParseError>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include <QJsonObject>
+#include <QProcess>
+#include <QSysInfo>
 #include <QFile>
 
 #include "logs.hpp"
@@ -21,15 +24,18 @@ class Downloader : public QDialog
 		explicit Downloader(QWidget *parent = nullptr);
 		~Downloader();
 
+	private slots:
+		void on_download_button_clicked();
+
 	private:
 		Ui::Downloader *ui;
 
 		QString m_songs_dir_path;
+		QString m_app_dir_path;
 
 		Logs log;
 
 		void read_config_file();
 		void start_download();
-		void check_if_songs_exists_in_folder();
 };
 

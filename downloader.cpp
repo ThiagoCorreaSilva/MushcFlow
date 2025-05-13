@@ -64,8 +64,6 @@ void Downloader::on_download_button_clicked()
 		QMessageBox::warning( this, tr("Empty URL!"), tr("You need to put a valid URL!"));
 		return;
     }
-
-	start_download();
 }
 
 void Downloader::start_download()

@@ -2,7 +2,6 @@
 
 #include <QDialog>
 
-#include <QtConcurrent/QtConcurrent>
 #include <QJsonParseError>
 #include <QJsonDocument>
 #include <QMessageBox>

@@ -8,7 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     setFixedSize( 500, 250 );
+
     open_configuration_window();
+    set_tab_widgets();
 }
 
 MainWindow::~MainWindow()
@@ -40,4 +42,13 @@ void MainWindow::open_configuration_window()
     first_time_window.setModal( true );
     first_time_window.setFixedSize( 600, 250 );
     first_time_window.exec();
+}
+
+void MainWindow::set_tab_widgets()
+{
+    ui->tabWidget->addTab( new Player(), "Player" );
+    ui->tabWidget->addTab( new Playlist(), "Playlist" );
+    ui->tabWidget->addTab( new Downloader(), "Downloader" );
+
+    ui->tabWidget->setCurrentIndex( 1 );
 }

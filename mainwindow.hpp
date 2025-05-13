@@ -10,6 +10,9 @@
 #include <QDir>
 
 #include "first_open_config.hpp"
+#include "downloader.hpp"
+#include "playlist.hpp"
+#include "player.hpp"
 #include "logs.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -28,4 +31,5 @@ class MainWindow : public QMainWindow
     private:
         Ui::MainWindow *ui;
         void open_configuration_window();
+        void set_tab_widgets();
 };

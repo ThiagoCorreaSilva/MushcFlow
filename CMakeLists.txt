@@ -25,6 +25,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         logs.hpp logs.cpp
         first_open_config.hpp first_open_config.cpp first_open_config.ui
+        downloader.hpp downloader.cpp downloader.ui
+        player.hpp player.cpp player.ui
+        playlist.hpp playlist.cpp playlist.ui
 
     )
 else()

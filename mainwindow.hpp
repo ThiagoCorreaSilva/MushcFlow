@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QDir>
 
+#include "first_open_config.hpp"
 #include "logs.hpp"
 
 QT_BEGIN_NAMESPACE
@@ -26,13 +27,5 @@ class MainWindow : public QMainWindow
 
     private:
         Ui::MainWindow *ui;
-        void config_app_directories();
-        void create_config_file();
-
-        const QString m_config_file_name = "configs.json";
-        const QString m_app_dir_name = "MushcFlow";
-        const QString m_songs_dir_name = "Songs";
-
-        Logs log;
-        QFile m_config_file;
+        void open_configuration_window();
 };

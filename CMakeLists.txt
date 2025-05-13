@@ -24,6 +24,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         logs.hpp logs.cpp
+        first_open_config.hpp first_open_config.cpp first_open_config.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET MushcFlow APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

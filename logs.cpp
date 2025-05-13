@@ -1,6 +1,6 @@
 #include "logs.hpp"
 
-void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error )
+void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error, const std::source_location &location )
 {
     create_directory();
 
@@ -14,14 +14,15 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error 
 
     QTextStream output( &log_file );
     output << "ERROR TYPE: " << get_error_message( error ) << '\n';
-    output << "ERROR:\n";
+    output << "LOG MESSAGE:\n";
 
     for ( const auto &message : log_messages )
     {
         output << '\t' << message << '\n';
     }
 
-    output << "\nTIME OF ERROR: " << current_time.toString();
+    output << '\n' << "ERROR CAUSED BY: "<< location.file_name() << ":" << location.line();
+    output << '\n' << "TIME OF ERROR: " << current_time.toString();
 
     log_file.flush();
     log_file.close();

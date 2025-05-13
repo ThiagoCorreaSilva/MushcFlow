@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QDir>
 
+#include <source_location>
+
 enum class ERROR_TYPE
 {
     FATAL,
@@ -18,5 +20,5 @@ class Logs
         QString get_error_message( const ERROR_TYPE &error );
 
     public:
-        void create_log( const QStringList &log_message, const ERROR_TYPE &error = ERROR_TYPE::FATAL );
+        void create_log( const QStringList &log_message, const ERROR_TYPE &error = ERROR_TYPE::FATAL, const std::source_location &location = std::source_location::current() );
 };

@@ -37,25 +37,37 @@ void MainWindow::config_app_directories()
         create_config_file();
     }
 
-    if (m_config_file.open( QFile::ReadOnly ))
+    if (!m_config_file.open( QFile::ReadOnly ))
     {
+        m_config_file.remove();
+
         QStringList error_list;
-        QString error_1 = "ERROR IN OPENING CONFIG_FILE.TXT!";
+        QString error_1 = "ERROR IN READING CONFIG_FILE.TXT!";
         QString error_2 = "PLEASE REOPEN THE PROGRAM OR DELETE CONFIG_FILE.TXT IN APP FOLDER!";
 
         error_list.push_back( error_1 );
         error_list.push_back( error_2);
 
-        log.create_log( error_list, ERROR_TYPE::FATAL );
+        log.create_log( error_list );
         exit( EXIT_FAILURE );
     }
 }
 
 void MainWindow::create_config_file()
 {
-    if (!m_config_file.open( QFile::WriteOnly ))
+    if (m_config_file.open( QFile::WriteOnly ))
     {
-        close();
+        m_config_file.remove();
+
+        QStringList error_list;
+        QString error_1 = "ERROR IN WRITING CONFIG_FILE.TXT!";
+        QString error_2 = "PLEASE CLOSE THE PROGRAM AND TRY AGAIN!";
+
+        error_list.push_back( error_1 );
+        error_list.push_back( error_2 );
+
+        log.create_log( error_list );
+        exit( EXIT_FAILURE );
     }
 
     QJsonDocument document;

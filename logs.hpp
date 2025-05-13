@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QRegularExpression>
 #include <QTextStream>
 #include <QDateTime>
 #include <QFile>
@@ -17,6 +18,7 @@ class Logs
 {
     private:
         void create_directory();
+
         QString get_error_message( const ERROR_TYPE &error );
 
     public:

@@ -4,12 +4,14 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error,
 {
     create_directory();
 
-    auto current_time = QDateTime::currentDateTime();
-    QFile log_file( "Logs/Log - " + current_time.toString() + ".txt" );
+    QString current_time = QDateTime::currentDateTime().toString();
+    current_time.replace( QRegularExpression(":"), "-" );
+
+    QFile log_file( "Logs/log - " + current_time + ".txt" );
 
     if (!log_file.open( QFile::WriteOnly | QFile::Text ))
     {
-        exit(EXIT_FAILURE);
+        //exit(EXIT_FAILURE);
     }
 
     QTextStream output( &log_file );
@@ -22,7 +24,6 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error,
     }
 
     output << '\n' << "ERROR CAUSED BY: "<< location.file_name() << ":" << location.line();
-    output << '\n' << "TIME OF ERROR: " << current_time.toString();
 
     log_file.flush();
     log_file.close();
@@ -52,5 +53,6 @@ void Logs::create_directory()
     }
 
     log_dir.mkdir( "Logs" );
+
     qDebug() << "LOG FOLDER CREATED SUCCESSFULLY";
 }

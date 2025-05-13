@@ -35,7 +35,7 @@ void First_Open_Config::on_confirm_button_clicked()
     m_app_dir_path = ui->folder_label->text() + "/" + m_app_dir_name;
     m_songs_dir_path = m_app_dir_path + "/" + m_songs_dir_name;
 
-    auto result = QMessageBox::question( this, "Confirm", "You want to use: " + m_app_dir_path + " for MushcFlow folder?",
+    auto result = QMessageBox::question( this, "Confirm", "You want to use: \"" + m_app_dir_path + "\" for MushcFlow folder?",
                   QMessageBox::Yes | QMessageBox::No );
 
     if (result == QMessageBox::Yes)

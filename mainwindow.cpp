@@ -46,7 +46,7 @@ void MainWindow::config_app_directories()
         error_list.push_back( error_1 );
         error_list.push_back( error_2);
 
-        log.create_log( error_list );
+        log.create_log( error_list, ERROR_TYPE::FATAL );
         exit( EXIT_FAILURE );
     }
 }

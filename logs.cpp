@@ -1,10 +1,10 @@
 #include "logs.hpp"
 
-void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error_tpye )
+void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error )
 {
     create_directory();
 
-    auto current_time = QTime::currentTime();
+    auto current_time = QDateTime::currentDateTime();
     QFile log_file( "Logs/Log - " + current_time.toString() + ".txt" );
 
     if (!log_file.open( QFile::WriteOnly | QFile::Text ))
@@ -13,7 +13,7 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error_
     }
 
     QTextStream output( &log_file );
-    output << "ERROR TYPE: " << error_type << '\n';
+    output << "ERROR TYPE: " << get_error_message( error ) << '\n';
     output << "ERROR:\n";
 
     for ( const auto &message : log_messages )
@@ -25,6 +25,20 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error_
 
     log_file.flush();
     log_file.close();
+}
+
+QString Logs::get_error_message( const ERROR_TYPE &error )
+{
+    switch ( error )
+    {
+        case ERROR_TYPE::FATAL:
+            return "FATAL ERROR! PLEASE READ LOG MESSAGE WITH ATTENTION";
+
+        case ERROR_TYPE::NON_FATAL:
+            return "NON-FATAL ERROR! PROBALY YOU CAN IGNORE THE LOG MESSAGE!";
+    }
+
+    return {};
 }
 
 void Logs::create_directory()

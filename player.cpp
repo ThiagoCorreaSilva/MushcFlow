@@ -32,4 +32,21 @@ void Player::play_song( const QFileInfo &song_info )
 
 	m_player->setSource( song_info.absoluteFilePath() );
 	m_player->play();
+
+	configure_song_ui( song_info );
+}
+
+void Player::configure_song_ui( const QFileInfo &song_info )
+{
+	ui->song_label->setText( song_info.fileName().remove(".mp3") );
+	ui->song_label->repaint();
+
+	QString image_path = song_info.canonicalFilePath().remove(".mp3") + ".jpg";
+	if (!QFile::exists( image_path ))
+	{
+		return;
+	}
+
+	QPixmap image( image_path );
+	ui->song_label->setPixmap( image );
 }

@@ -5,6 +5,7 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimedia/QAudioOutput>
 #include <QFileInfo>
+#include <QPixmap>
 #include <QFile>
 
 #include "logs.hpp"
@@ -30,4 +31,6 @@ class Player : public QDialog
 		QMediaPlayer *m_player;
 
 		Logs log;
+
+		void configure_song_ui( const QFileInfo &song_info );
 };

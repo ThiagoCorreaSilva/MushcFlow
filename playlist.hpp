@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QDialog>
-#include <QWidget>
 
 #include <QFileSystemWatcher>
 #include <QJsonParseError>
@@ -13,6 +12,7 @@
 #include <QFileInfo>
 #include <QPalette>
 #include <QPixmap>
+#include <QWidget>
 #include <QFile>
 
 #include "player.hpp"

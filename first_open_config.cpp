@@ -8,7 +8,7 @@ First_Open_Config::First_Open_Config(QWidget *parent) :
     ui->setupUi(this);
 
     // Dont allow user close the dialog
-    //setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
+    setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
 }
 
 First_Open_Config::~First_Open_Config()
@@ -35,7 +35,7 @@ void First_Open_Config::on_confirm_button_clicked()
     m_app_dir_path = ui->folder_label->text() + "/" + m_app_dir_name;
     m_songs_dir_path = m_app_dir_path + "/" + m_songs_dir_name;
 
-    auto result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + m_app_dir_path + tr("\" for MushcFlow folder?"),
+    int result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + m_app_dir_path + tr("\" for MushcFlow folder?"),
                   QMessageBox::Yes | QMessageBox::No );
 
     if (result == QMessageBox::Yes)
@@ -57,14 +57,11 @@ void First_Open_Config::create_config_file()
     {
         config_file.remove();
 
-        QStringList error_list;
         QString error_1 = "ERROR WHILE WRITING CONFIG_FILE.TXT!";
         QString error_2 = "PLEASE CLOSE THE PROGRAM AND TRY AGAIN!";
 
-        error_list.push_back( error_1 );
-        error_list.push_back( error_2 );
+        log.create_log( {error_1, error_2} );
 
-        log.create_log( error_list );
         exit( EXIT_FAILURE );
     }
 

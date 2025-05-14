@@ -2,6 +2,7 @@
 
 #include <QRegularExpression>
 #include <QTextStream>
+#include <QMessageBox>
 #include <QDateTime>
 #include <QFile>
 #include <QDir>

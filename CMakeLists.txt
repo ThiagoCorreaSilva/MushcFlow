@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         player.hpp player.cpp player.ui
         playlist.hpp playlist.cpp playlist.ui
 
+
     )
 else()
     if(ANDROID)

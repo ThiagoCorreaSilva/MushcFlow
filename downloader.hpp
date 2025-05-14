@@ -34,7 +34,6 @@ class Downloader : public QDialog
 		QString m_app_dir_path;
 
         Logs log;
-        bool m_on_download;
 
 		void read_config_file();
 		void start_download();

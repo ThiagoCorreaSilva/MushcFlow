@@ -69,7 +69,7 @@ void Downloader::start_download()
 	QString path = "\"" + m_songs_dir_path + "/%(title)s.%(ext)s\" ";
 	QString url = ui->url_input->text();
 	QString ffmpeg_location =  (system_type == "windows") ? " --ffmpeg-location \"ffmpeg/\"" : "";
-	QString command = yt_dlp_flags + path + url + ffmpeg_location;
+    QString command = yt_dlp_flags + path + url + ffmpeg_location;
 
 	QProcess process;
 	process.startCommand( command );

@@ -66,9 +66,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>150</x>
       <y>10</y>
-      <width>151</width>
+      <width>191</width>
       <height>41</height>
      </rect>
     </property>
@@ -93,9 +93,9 @@
    <widget class="QLabel" name="songs_count_label">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>340</x>
       <y>10</y>
-      <width>201</width>
+      <width>161</width>
       <height>41</height>
      </rect>
     </property>

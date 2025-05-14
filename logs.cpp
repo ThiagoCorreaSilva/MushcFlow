@@ -1,14 +1,15 @@
 #include "logs.hpp"
 
-void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error, const std::source_location &location )
+void Logs::create_log( const QStringList &log_messages, QWidget *parent, const ERROR_TYPE &error, const std::source_location &location )
 {
     create_directory();
 
     QString current_time = QDateTime::currentDateTime().toString();
     current_time.replace( QRegularExpression(":"), "-" );
 
-    QFile log_file( "Logs/log - " + current_time + ".txt" );
+    QString file_name = "Logs/log - " + current_time + ".txt";
 
+    QFile log_file( file_name );
     if (!log_file.open( QFile::WriteOnly | QFile::Text ))
     {
         return;
@@ -27,6 +28,8 @@ void Logs::create_log( const QStringList &log_messages, const ERROR_TYPE &error,
 
     log_file.flush();
     log_file.close();
+
+    show_message_box( parent, file_name );
 }
 
 QString Logs::get_error_message( const ERROR_TYPE &error )
@@ -55,4 +58,13 @@ void Logs::create_directory()
     log_dir.mkdir( "Logs" );
 
     qDebug() << "LOG FOLDER CREATED SUCCESSFULLY";
+}
+
+void Logs::show_message_box( QWidget *parent, const QString &log_name )
+{
+    int result = QMessageBox::question( parent, "Error!", QTranslator::tr("\t Ocurred a error! \n You want to see the log about it?") );
+    if (result == QMessageBox::Yes)
+    {
+        QDesktopServices::openUrl( QUrl::fromLocalFile( log_name ) );
+    }
 }

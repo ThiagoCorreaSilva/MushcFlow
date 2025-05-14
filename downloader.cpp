@@ -23,7 +23,7 @@ void Downloader::read_config_file()
 	{
 		QString error = "ERROR IN OPENING CONFIG FILE!";
 
-		log.create_log( {error}, ERROR_TYPE::NON_FATAL );
+		log.create_log( {error}, this, ERROR_TYPE::NON_FATAL );
 
 		return;
 	}
@@ -39,7 +39,7 @@ void Downloader::read_config_file()
 		QString error_1 = "ERROR IN READING JSON DOCUMENT!";
 		QString error_2 = "IF YOU CHANGE THE CONFIG_FILE, PLEASE DELETE IT AND OPEN AGAIN!";
 
-		log.create_log( {error_1, error_2} );
+		log.create_log( {error_1, error_2}, this );
 
 		exit( EXIT_FAILURE );
 	}
@@ -92,7 +92,7 @@ void Downloader::start_download()
 
 		error_list.push_back( error_1 );
 		error_list.push_back( error_2 );
-		log.create_log( error_list, ERROR_TYPE::NON_FATAL );
+		log.create_log( error_list, this, ERROR_TYPE::NON_FATAL );
 
 		return;
 	}

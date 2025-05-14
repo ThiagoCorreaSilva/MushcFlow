@@ -60,7 +60,7 @@ void First_Open_Config::create_config_file()
         QString error_1 = "ERROR WHILE WRITING CONFIG_FILE.TXT!";
         QString error_2 = "PLEASE CLOSE THE PROGRAM AND TRY AGAIN!";
 
-        log.create_log( {error_1, error_2} );
+        log.create_log( {error_1, error_2}, this );
 
         exit( EXIT_FAILURE );
     }

@@ -9,10 +9,10 @@
 #include <QJsonObject>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QTabWidget>
+#include <QFileInfo>
 #include <QPalette>
 #include <QPixmap>
-#include <QColor>
-#include <QIcon>
 #include <QFile>
 
 #include "player.hpp"
@@ -27,7 +27,7 @@ class Playlist : public QDialog
 		Q_OBJECT
 
 	public:
-		explicit Playlist(QWidget *parent = nullptr);
+		explicit Playlist(QWidget *parent = nullptr, QTabWidget *tab = nullptr);
 		~Playlist();
 
 	private:
@@ -38,14 +38,16 @@ class Playlist : public QDialog
 		void songs_dir_watcher_event();
 		void refresh_songs_list();
 		void set_pix_map( QPushButton &button, const QString &path );
-		void play_song( const QString &song_path );
+		void play_song( const QFileInfo &song_info );
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;
 		QFileSystemWatcher m_watcher;
+		QTabWidget *m_tab;
 
 		QString m_songs_dir_path;
 
+		Player player;
 		Logs log;
 };
 

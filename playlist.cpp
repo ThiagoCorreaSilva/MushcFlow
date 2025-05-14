@@ -1,8 +1,9 @@
 #include "playlist.hpp"
 #include "ui_playlist.h"
 
-Playlist::Playlist(QWidget *parent) :
+Playlist::Playlist(QWidget *parent, QTabWidget *tab) :
 	QDialog(parent),
+	m_tab( tab ),
 	ui(new Ui::Playlist)
 {
 	ui->setupUi(this);
@@ -30,7 +31,7 @@ void Playlist::read_config_file()
 	{
 		QString error_1 = "ERROR WHILE READING CONFIG_FILE!";
 		QString error_2 = "IF YOU MAKE ANY CHANGES IN COFIG_FILE, DELETE IT AND TRY AGAIN!";
-		log.create_log( {error_1, error_2} );
+		log.create_log( {error_1, error_2}, this );
 
 		exit( EXIT_FAILURE );
 	}
@@ -46,7 +47,7 @@ void Playlist::read_config_file()
 		QString error_1 = "ERROR IN READING JSON DATA IN CONFIG_FILE!";
 		QString error_2 = "PLEASE, DELETE CONFIG_FILE AND TRY AGAIN!";
 
-		log.create_log( {error_1, error_2} );
+		log.create_log( {error_1, error_2}, this );
 
 		exit( EXIT_FAILURE );
 	}
@@ -75,7 +76,7 @@ void Playlist::refresh_songs_list()
 		QString error_1 = "SONGS FOLDER DONT EXISTS!";
 		QString error_2 = "TRY TO REOPEN MUSHCFLOW! IF NOT WORK, DELETE CONFIG_FILE!";
 
-		log.create_log( {error_1, error_2} );
+		log.create_log( {error_1, error_2}, this );
 
 		return;
 	}
@@ -101,7 +102,7 @@ void Playlist::refresh_songs_list()
 
 		button->setFixedHeight( 50 );
 		set_pix_map( *button, file.filePath().remove(".mp3") );
-		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file.filePath() ); } );
+		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file ); } );
 
 		m_layout->addWidget( button );
 
@@ -127,7 +128,8 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 	button.setPalette( palette );
 }
 
-void Playlist::play_song( const QString &song_path )
+void Playlist::play_song( const QFileInfo &song_info )
 {
-	qDebug() << song_path;
+	player.play_song( song_info );
+	m_tab->setCurrentIndex( 0 );
 }

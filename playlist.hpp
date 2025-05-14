@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QFile>
 
+#include "player.hpp"
 #include "logs.hpp"
 
 namespace Ui {

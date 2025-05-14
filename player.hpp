@@ -2,6 +2,9 @@
 
 #include <QDialog>
 
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QAudioOutput>
+
 namespace Ui {
 class Player;
 }
@@ -17,4 +20,3 @@ class Player : public QDialog
 	private:
 		Ui::Player *ui;
 };
-

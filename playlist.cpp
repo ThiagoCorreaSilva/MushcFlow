@@ -65,7 +65,6 @@ void Playlist::config_watcher_to_songs_dir()
 void Playlist::songs_dir_watcher_event()
 {
 	refresh_songs_list();
-	qDebug() << "WATCHER EVENT!";
 }
 
 void Playlist::refresh_songs_list()
@@ -81,20 +80,38 @@ void Playlist::refresh_songs_list()
 		return;
 	}
 
+	// Delete all childrens in m_container (who have a QVBoxLayout)
+	qDeleteAll( m_container->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly) );
 	QFileInfoList files_info = songs_dir.entryInfoList();
-	for ( const auto &file : std::as_const(files_info) )
+	int total_files = 0;
+
+	for ( auto &file : std::as_const(files_info) )
 	{
 		if (file.isDir())
 		{
-			break;
+			continue;
 		}
 
-		QPushButton *button = new QPushButton( file.fileName() );
-		connect(button, &QPushButton::clicked, this, [ this, button ]{ play_song( button->text() ); } );
+		if (!file.fileName().contains( ".mp3" ))
+		{
+			QFile::remove( file.filePath() );
+			continue;
+		}
+
+		QString button_text = file.fileName().remove( ".mp3" );
+		QPushButton *button = new QPushButton( button_text );
+
+		button->setFixedHeight( 50 );
+		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file.fileName() ); } );
+
+		m_layout->addWidget( button );
+
+		total_files++;
+		ui->songs_count_label->setText( QString::number( total_files ) );
 	}
 }
 
 void Playlist::play_song( const QString &song_name )
 {
-	qDebug() << "song_name";
+	qDebug() << song_name;
 }

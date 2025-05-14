@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QPalette>
 #include <QPixmap>
+#include <QColor>
 #include <QIcon>
 #include <QFile>
 

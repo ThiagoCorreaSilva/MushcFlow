@@ -9,6 +9,9 @@
 #include <QJsonObject>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QPalette>
+#include <QPixmap>
+#include <QIcon>
 #include <QFile>
 
 #include "player.hpp"
@@ -33,7 +36,8 @@ class Playlist : public QDialog
 		void config_watcher_to_songs_dir();
 		void songs_dir_watcher_event();
 		void refresh_songs_list();
-		void play_song( const QString &song_name );
+		void set_pix_map( QPushButton &button, const QString &path );
+		void play_song( const QString &song_path );
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;

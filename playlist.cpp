@@ -94,15 +94,14 @@ void Playlist::refresh_songs_list()
 
 		if (!file.fileName().contains( ".mp3" ))
 		{
-			QFile::remove( file.filePath() );
 			continue;
 		}
 
-		QString button_text = file.fileName().remove( ".mp3" );
-		QPushButton *button = new QPushButton( button_text );
+		QPushButton *button = new QPushButton( file.fileName().remove(".mp3") );
 
 		button->setFixedHeight( 50 );
-		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file.fileName() ); } );
+		set_pix_map( *button, file.filePath().remove(".mp3") );
+		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file.filePath() ); } );
 
 		m_layout->addWidget( button );
 
@@ -111,7 +110,24 @@ void Playlist::refresh_songs_list()
 	}
 }
 
-void Playlist::play_song( const QString &song_name )
+void Playlist::set_pix_map( QPushButton &button, const QString &path )
 {
-	qDebug() << song_name;
+	if (!QFile::exists( path + ".jpg" ))
+	{
+		qDebug() << "IMAGE OF " + button.text() << " DONT EXISTS!";
+		return;
+	}
+
+	QPixmap pixmap( path + ".jpg" );
+	QPalette palette;
+	palette.setBrush( button.backgroundRole(), QBrush( pixmap ) );
+
+	button.setFlat( true );
+	button.setAutoFillBackground( true );
+	button.setPalette( palette );
+}
+
+void Playlist::play_song( const QString &song_path )
+{
+	qDebug() << song_path;
 }

@@ -64,12 +64,14 @@ void Downloader::on_download_button_clicked()
 void Downloader::start_download()
 {
 	QString system_type = QSysInfo::productType();
-	QString yt_dlp_path = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
-	QString yt_dlp_flags = yt_dlp_path + " --ies all,-generic -x --audio-format mp3 -o ";
-	QString path = "\"" + m_songs_dir_path + "/%(title)s.%(ext)s\" ";
-	QString url = ui->url_input->text();
+	QString yt_dlp_binary = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
+	QString yt_dlp_flags = yt_dlp_binary + " --ies all,-generic ";
+	QString yt_dlp_download_thumb = "--write-thumbnail --convert-thumbnails jpg --ppa \"ThumbnailsConvertor:-q:v 1\" ";
+	QString yt_dlp_song_format = "-x --audio-format mp3 -o ";
+	QString yt_dlp_path = "\"" + m_songs_dir_path + "/%(title)s.%(ext)s\" ";
+	QString yt_dlp_url = ui->url_input->text();
 	QString ffmpeg_location =  (system_type == "windows") ? " --ffmpeg-location \"ffmpeg/\"" : "";
-    QString command = yt_dlp_flags + path + url + ffmpeg_location;
+	QString command = yt_dlp_flags + yt_dlp_download_thumb + yt_dlp_song_format + yt_dlp_path + yt_dlp_url + ffmpeg_location;
 
 	QProcess process;
 	process.startCommand( command );

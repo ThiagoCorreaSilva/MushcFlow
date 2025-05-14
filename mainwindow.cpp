@@ -32,8 +32,7 @@ void MainWindow::centralize_window( const QApplication &app )
 
 void MainWindow::open_configuration_window()
 {
-    QFile config_file;
-    if (config_file.exists( "configs.json" ))
+    if (QFile::exists( "configs.json" ))
     {
         return;
     }

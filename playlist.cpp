@@ -1,9 +1,8 @@
 #include "playlist.hpp"
 #include "ui_playlist.h"
 
-Playlist::Playlist(QWidget *parent, QTabWidget *tab) :
+Playlist::Playlist(QWidget *parent) :
 	QDialog(parent),
-	m_tab( tab ),
 	ui(new Ui::Playlist)
 {
 	ui->setupUi(this);
@@ -130,6 +129,6 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 
 void Playlist::play_song( const QFileInfo &song_info )
 {
-	player.play_song( song_info );
-	m_tab->setCurrentIndex( 0 );
+	ui->song_label->setText( song_info.fileName().remove(".mp3") );
+	ui->tabWidget->setCurrentIndex( 0 );
 }

@@ -45,9 +45,6 @@ void MainWindow::open_configuration_window()
 
 void MainWindow::set_tab_widgets()
 {
-    ui->tabWidget->addTab( new Player(), "Player" );
-    ui->tabWidget->addTab( new Playlist( nullptr, ui->tabWidget ), "Playlist" );
+    ui->tabWidget->addTab( new Playlist(), "Player" );
     ui->tabWidget->addTab( new Downloader(), "Downloader" );
-
-    ui->tabWidget->setCurrentIndex( 1 );
 }

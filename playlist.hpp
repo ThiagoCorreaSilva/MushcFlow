@@ -8,14 +8,12 @@
 #include <QJsonObject>
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QTabWidget>
 #include <QFileInfo>
 #include <QPalette>
 #include <QPixmap>
 #include <QWidget>
 #include <QFile>
 
-#include "player.hpp"
 #include "logs.hpp"
 
 namespace Ui {
@@ -27,7 +25,7 @@ class Playlist : public QDialog
 		Q_OBJECT
 
 	public:
-		explicit Playlist(QWidget *parent = nullptr, QTabWidget *tab = nullptr);
+		explicit Playlist(QWidget *parent = nullptr);
 		~Playlist();
 
 	private:
@@ -43,11 +41,9 @@ class Playlist : public QDialog
 		QWidget *m_container;
 		QVBoxLayout *m_layout;
 		QFileSystemWatcher m_watcher;
-		QTabWidget *m_tab;
 
 		QString m_songs_dir_path;
 
-		Player player;
 		Logs log;
 };
 

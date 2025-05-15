@@ -27,7 +27,7 @@ void Downloader::read_config_file()
 		log.create_log( {error_1, error_2}, this );
 	}
 
-	m_songs_dir_path = result.value().at(0);
+	m_songs_dir_path = result.value().value("songs_dir");
 }
 
 void Downloader::on_download_button_clicked()

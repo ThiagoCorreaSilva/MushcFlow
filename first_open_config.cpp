@@ -35,13 +35,15 @@ void First_Open_Config::on_confirm_button_clicked()
     m_app_dir_path = ui->folder_label->text() + "/" + m_app_dir_name;
     m_songs_dir_path = m_app_dir_path + "/" + m_songs_dir_name;
 
-    int result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + m_app_dir_path + tr("\" for MushcFlow folder?"),
+    int result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + ui->folder_label->text() + tr("\" for MushcFlow folder?"),
                   QMessageBox::Yes | QMessageBox::No );
 
     if (result == QMessageBox::Yes)
     {
         m_app_language = ui->language_box->currentText();
         create_config_file();
+        create_app_directories();
+
         return;
     }
 
@@ -52,35 +54,13 @@ void First_Open_Config::on_confirm_button_clicked()
 
 void First_Open_Config::create_config_file()
 {
-    QFile config_file( "configs.json" );
-    if (!config_file.open( QFile::WriteOnly ))
-    {
-        config_file.remove();
+    QMap < QString, QString > values_to_write;
+    values_to_write["app_dir"] = m_app_dir_path;
+    values_to_write["songs_dir"] = m_songs_dir_path;
+    values_to_write["language"] = m_app_language;
+    values_to_write["use_thumbnail"] = "1";
 
-        QString error_1 = "ERROR WHILE WRITING CONFIG_FILE.TXT!";
-        QString error_2 = "PLEASE CLOSE THE PROGRAM AND TRY AGAIN!";
-
-        log.create_log( {error_1, error_2}, this );
-
-        exit( EXIT_FAILURE );
-    }
-
-    QJsonDocument document;
-    QJsonObject object;
-
-    object["app_dir"] = m_app_dir_path;
-    object["songs_dir"] = m_songs_dir_path;
-    object["language"] = m_app_language;
-    object["show_thumbnails"] = 1;
-
-    document.setObject( object );
-
-    QByteArray data_json = document.toJson();
-
-    config_file.write( data_json );
-    config_file.close();
-
-    create_app_directories();
+    Config_file_handler::write_values( values_to_write );
 }
 
 void First_Open_Config::create_app_directories()

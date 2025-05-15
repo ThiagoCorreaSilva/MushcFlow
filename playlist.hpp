@@ -35,7 +35,8 @@ class Playlist : public QDialog
 	private:
 		Ui::Playlist *ui;
 
-		void read_config_file_and_set_playlist();
+		void read_config_file_and_make_class_configs();
+		void set_thumbnail_show_state();
 		void config_watcher_to_songs_dir();
 		void songs_dir_watcher_event();
 		void refresh_songs_list();
@@ -48,7 +49,7 @@ class Playlist : public QDialog
 		Song_handler m_song_handler;
 
 		QString m_songs_dir_path;
-		bool m_active_thumbnail = true;
+		bool m_show_thumbnail = true;
 
 		Logs log;
 };

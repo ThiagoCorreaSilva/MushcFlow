@@ -10,7 +10,9 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QDir>
+#include <QMap>
 
+#include "config_file_handler.hpp"
 #include "logs.hpp"
 
 namespace Ui {

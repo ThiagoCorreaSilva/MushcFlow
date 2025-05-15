@@ -12,7 +12,7 @@ Playlist::Playlist(QWidget *parent) :
 
 	m_layout = new QVBoxLayout( m_container );
 
-	read_config_file_and_set_playlist();
+	read_config_file_and_make_class_configs();
 	refresh_songs_list();
 	config_watcher_to_songs_dir();
 }
@@ -22,9 +22,9 @@ Playlist::~Playlist()
 	delete ui;
 }
 
-void Playlist::read_config_file_and_set_playlist()
+void Playlist::read_config_file_and_make_class_configs()
 {
-	auto result = Config_file_handler::get_values( {"songs_dir"} );
+	auto result = Config_file_handler::get_values( {"songs_dir", "use_thumbnail"} );
 	if (!result.has_value())
 	{
 		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
@@ -34,8 +34,11 @@ void Playlist::read_config_file_and_set_playlist()
 		exit( EXIT_FAILURE );
 	}
 
-	m_songs_dir_path = result.value().at(0);
+	m_songs_dir_path = result.value().value("songs_dir");
 	m_song_handler.set_playlist( m_songs_dir_path );
+
+	m_show_thumbnail = result.value().value("use_thumbnail").toInt();
+	ui->thumbnail_check->setChecked( m_show_thumbnail );
 }
 
 void Playlist::config_watcher_to_songs_dir()
@@ -86,7 +89,7 @@ void Playlist::refresh_songs_list()
 		button->setFont( QFont( "Arial" ));
 		button->setStyleSheet( "font: bold; text-decoration: underline;" );
 
-		if (m_active_thumbnail)
+		if (m_show_thumbnail)
 		{
 			set_pix_map( *button, file.filePath().remove(".mp3") );
 		}
@@ -134,6 +137,9 @@ void Playlist::on_play_pause_button_clicked()
 
 void Playlist::on_thumbnail_check_stateChanged(int state)
 {
-	m_active_thumbnail = state;
+	m_show_thumbnail = state;
+
+	Config_file_handler::write_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
+
 	refresh_songs_list();
 }

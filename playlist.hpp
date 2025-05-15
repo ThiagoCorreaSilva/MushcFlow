@@ -46,7 +46,6 @@ class Playlist : public QDialog
 		void refresh_songs_list();
 		void set_pix_map( QPushButton &button, const QString &path );
 		void play_song( const QFileInfo &song_info );
-		void change_song_text();
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;

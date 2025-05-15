@@ -36,9 +36,6 @@ void Playlist::read_config_file_and_make_class_configs()
 
 	m_songs_dir_path = result.value().value("songs_dir");
 	m_song_handler.set_playlist( m_songs_dir_path );
-
-	m_show_thumbnail = result.value().value("use_thumbnail").toInt();
-	ui->thumbnail_check->setChecked( m_show_thumbnail );
 }
 
 void Playlist::config_watcher_to_songs_dir()
@@ -138,8 +135,5 @@ void Playlist::on_play_pause_button_clicked()
 void Playlist::on_thumbnail_check_stateChanged(int state)
 {
 	m_show_thumbnail = state;
-
-	Config_file_handler::write_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
-
 	refresh_songs_list();
 }

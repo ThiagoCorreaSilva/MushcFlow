@@ -25,39 +25,11 @@ void Config_file_handler::write_values( const QMap< QString, QString > &values_t
 	}
 
 	document.setObject( object );
-	QByteArray buffer = document.toJson();
 
-	config_file.write( buffer );
+	config_file.write( document.toJson() );
 	config_file.close();
-}
 
-
-void Config_file_handler::write_value( const QString &key, const QString &value )
-{
-	Logs log;
-	QFile config_file( "configs.json" );
-
-	if (!config_file.open( QFile::WriteOnly ))
-	{
-		QString error_1 = "ERROR IN OPENING CONFIG_FILE";
-		QString error_2 = "PLEASE, TRY AGAIN!";
-
-		log.create_log( {error_1, error_2} );
-		config_file.remove();
-
-		return;
-	}
-
-	QJsonDocument document;
-	QJsonObject object;
-
-	object.value(key) = value;
-
-	document.setObject( object );
-	QByteArray buffer = document.toJson();
-
-	config_file.write( buffer );
-	config_file.close();
+	qDebug() << "writed";
 }
 
 std::optional<QMap< QString, QString >> Config_file_handler::get_values( const QStringList &values_to_read )

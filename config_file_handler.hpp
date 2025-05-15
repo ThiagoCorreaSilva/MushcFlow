@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QJsonParseError>
+#include <QJsonValueRef>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
@@ -16,5 +17,4 @@ class Config_file_handler
 	public:
 		static std::optional<QMap< QString, QString >> get_values( const QStringList &values_to_read );
 		static void write_values( const QMap< QString, QString> &values_to_write );
-		static void write_value( const QString &key, const QString &value );
 };

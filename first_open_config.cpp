@@ -9,6 +9,9 @@ First_Open_Config::First_Open_Config(QWidget *parent) :
 
     // Dont allow user close the dialog
     setWindowFlags( Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint );
+
+    QString documents_path = QStandardPaths::standardLocations( QStandardPaths::DocumentsLocation ).at(0);
+    ui->folder_label->setText( documents_path );
 }
 
 First_Open_Config::~First_Open_Config()

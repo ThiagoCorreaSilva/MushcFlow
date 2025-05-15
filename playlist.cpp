@@ -102,11 +102,15 @@ void Playlist::refresh_songs_list()
 
 		QPushButton *button = new QPushButton( file.fileName().remove(".mp3") );
 
-		button->setFixedHeight( 50 );
+		button->setFixedSize( 460, 60 );
 		button->setFont( QFont( "Arial" ));
 		button->setStyleSheet( "font: bold; text-decoration: underline;" );
 
-		set_pix_map( *button, file.filePath().remove(".mp3") );
+		if (m_active_thumbnail)
+		{
+			set_pix_map( *button, file.filePath().remove(".mp3") );
+		}
+
 		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file ); } );
 
 		m_layout->addWidget( button );
@@ -147,3 +151,10 @@ void Playlist::on_play_pause_button_clicked()
 {
 	m_song_handler.pause_unpause_song();
 }
+
+void Playlist::on_thumbnail_check_stateChanged(int state)
+{
+	m_active_thumbnail = state;
+	refresh_songs_list();
+}
+

@@ -125,7 +125,7 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 	}
 
 	QPixmap pixmap( path + ".jpg" );
-	pixmap = pixmap.scaled( button.size(), Qt::KeepAspectRatio );
+    pixmap = pixmap.scaled( button.size(), Qt::KeepAspectRatio );
 
 	QPalette palette;
 	palette.setBrush( button.backgroundRole(), QBrush( pixmap ) );

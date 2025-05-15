@@ -4,7 +4,7 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QFileInfo>
 #include <QFileInfoList>
-#include <qDebug>
+#include <QDebug>
 #include <QDir>
 
 class Song_handler

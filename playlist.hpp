@@ -32,6 +32,8 @@ class Playlist : public QDialog
 
 		void on_thumbnail_check_stateChanged(int state);
 
+		void on_volume_slider_valueChanged(int value);
+
 	private:
 		Ui::Playlist *ui;
 
@@ -49,7 +51,7 @@ class Playlist : public QDialog
 		Song_handler m_song_handler;
 
 		QString m_songs_dir_path;
-		bool m_show_thumbnail = true;
+		bool m_show_thumbnail = false;
 
 		Logs log;
 };

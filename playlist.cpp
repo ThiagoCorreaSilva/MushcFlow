@@ -36,6 +36,7 @@ void Playlist::read_config_file_and_make_class_configs()
 
 	m_songs_dir_path = result.value().value("songs_dir");
 	m_song_handler.set_playlist( m_songs_dir_path );
+	ui->volume_label->setText( "Volume: " + QString::number( 50 ) );
 }
 
 void Playlist::config_watcher_to_songs_dir()
@@ -137,3 +138,10 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 	m_show_thumbnail = state;
 	refresh_songs_list();
 }
+
+void Playlist::on_volume_slider_valueChanged(int value)
+{
+	ui->volume_label->setText( "Volume: " + QString::number( value ) );
+	m_song_handler.change_volume( value );
+}
+

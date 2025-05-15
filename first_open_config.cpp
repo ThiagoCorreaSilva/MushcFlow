@@ -61,7 +61,7 @@ void First_Open_Config::create_config_file()
     values_to_write["app_dir"] = m_app_dir_path;
     values_to_write["songs_dir"] = m_songs_dir_path;
     values_to_write["language"] = m_app_language;
-    values_to_write["use_thumbnail"] = "1";
+    values_to_write["use_thumbnail"] = "0";
 
     Config_file_handler::write_values( values_to_write );
 }

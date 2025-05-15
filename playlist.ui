@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="player_tab">
     <attribute name="title">
@@ -182,6 +182,47 @@
       </property>
      </widget>
     </widget>
+    <widget class="QSlider" name="volume_slider">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>180</y>
+       <width>451</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>50</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="volume_label">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>160</y>
+       <width>451</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Volume: </string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="playlist_tab">
     <attribute name="title">
@@ -246,7 +287,7 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>180</x>
         <y>20</y>
         <width>131</width>
         <height>31</height>
@@ -275,9 +316,9 @@
      <widget class="QLabel" name="songs_count_label">
       <property name="geometry">
        <rect>
-        <x>330</x>
+        <x>320</x>
         <y>20</y>
-        <width>61</width>
+        <width>51</width>
         <height>31</height>
        </rect>
       </property>
@@ -305,21 +346,21 @@
      <widget class="QCheckBox" name="thumbnail_check">
       <property name="geometry">
        <rect>
-        <x>390</x>
+        <x>370</x>
         <y>20</y>
-        <width>111</width>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>13</pointsize>
+        <pointsize>11</pointsize>
         <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>Thumbnail</string>
+       <string>Show Thumbnail</string>
       </property>
       <property name="iconSize">
        <size>
@@ -328,7 +369,7 @@
        </size>
       </property>
       <property name="checked">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="tristate">
        <bool>false</bool>

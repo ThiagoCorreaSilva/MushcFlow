@@ -14,6 +14,7 @@
 #include <QWidget>
 #include <QFile>
 
+#include "song_handler.hpp"
 #include "logs.hpp"
 
 namespace Ui {
@@ -41,6 +42,7 @@ class Playlist : public QDialog
 		QWidget *m_container;
 		QVBoxLayout *m_layout;
 		QFileSystemWatcher m_watcher;
+		Song_handler m_song_handler;
 
 		QString m_songs_dir_path;
 

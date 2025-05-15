@@ -131,4 +131,6 @@ void Playlist::play_song( const QFileInfo &song_info )
 {
 	ui->song_label->setText( song_info.fileName().remove(".mp3") );
 	ui->tabWidget->setCurrentIndex( 0 );
+
+	m_song_handler.play_song( song_info.absoluteFilePath() );
 }

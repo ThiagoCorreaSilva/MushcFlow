@@ -15,6 +15,8 @@ Playlist::Playlist(QWidget *parent) :
 	read_config_file();
 	refresh_songs_list();
 	config_watcher_to_songs_dir();
+
+	m_song_handler.set_playlist( m_songs_dir_path );
 }
 
 Playlist::~Playlist()
@@ -65,6 +67,7 @@ void Playlist::config_watcher_to_songs_dir()
 void Playlist::songs_dir_watcher_event()
 {
 	refresh_songs_list();
+	m_song_handler.reset_playlist();
 }
 
 void Playlist::refresh_songs_list()
@@ -100,6 +103,9 @@ void Playlist::refresh_songs_list()
 		QPushButton *button = new QPushButton( file.fileName().remove(".mp3") );
 
 		button->setFixedHeight( 50 );
+		button->setFont( QFont( "Arial" ));
+		button->setStyleSheet( "font: bold; text-decoration: underline;" );
+
 		set_pix_map( *button, file.filePath().remove(".mp3") );
 		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file ); } );
 
@@ -119,6 +125,8 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 	}
 
 	QPixmap pixmap( path + ".jpg" );
+	pixmap = pixmap.scaled( button.size(), Qt::KeepAspectRatio );
+
 	QPalette palette;
 	palette.setBrush( button.backgroundRole(), QBrush( pixmap ) );
 
@@ -132,5 +140,10 @@ void Playlist::play_song( const QFileInfo &song_info )
 	ui->song_label->setText( song_info.fileName().remove(".mp3") );
 	ui->tabWidget->setCurrentIndex( 0 );
 
-	m_song_handler.play_song( song_info.absoluteFilePath() );
+	m_song_handler.play_song( song_info );
+}
+
+void Playlist::on_play_pause_button_clicked()
+{
+	m_song_handler.pause_unpause_song();
 }

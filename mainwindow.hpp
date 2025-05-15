@@ -3,12 +3,6 @@
 #include <QMainWindow>
 #include <QScreen>
 
-#include <QJsonParseError>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QFile>
-#include <QDir>
-
 #include "first_open_config.hpp"
 #include "downloader.hpp"
 #include "playlist.hpp"

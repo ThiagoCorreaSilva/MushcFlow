@@ -29,6 +29,9 @@ class Playlist : public QDialog
 		explicit Playlist(QWidget *parent = nullptr);
 		~Playlist();
 
+	private slots:
+		void on_play_pause_button_clicked();
+
 	private:
 		Ui::Playlist *ui;
 

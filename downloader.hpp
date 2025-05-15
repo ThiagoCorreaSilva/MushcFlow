@@ -2,14 +2,12 @@
 
 #include <QDialog>
 
-#include <QJsonParseError>
-#include <QJsonDocument>
 #include <QMessageBox>
-#include <QJsonObject>
 #include <QProcess>
 #include <QSysInfo>
 #include <QFile>
 
+#include "config_file_handler.hpp"
 #include "logs.hpp"
 
 namespace Ui {
@@ -31,7 +29,6 @@ class Downloader : public QDialog
 		Ui::Downloader *ui;
 
 		QString m_songs_dir_path;
-		QString m_app_dir_path;
 
         Logs log;
 

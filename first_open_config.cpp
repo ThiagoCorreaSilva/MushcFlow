@@ -71,6 +71,7 @@ void First_Open_Config::create_config_file()
     object["app_dir"] = m_app_dir_path;
     object["songs_dir"] = m_songs_dir_path;
     object["language"] = m_app_language;
+    object["show_thumbnails"] = 1;
 
     document.setObject( object );
 

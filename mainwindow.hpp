@@ -6,7 +6,6 @@
 #include "first_open_config.hpp"
 #include "downloader.hpp"
 #include "playlist.hpp"
-#include "logs.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

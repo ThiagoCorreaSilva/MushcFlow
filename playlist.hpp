@@ -3,9 +3,6 @@
 #include <QDialog>
 
 #include <QFileSystemWatcher>
-#include <QJsonParseError>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QFileInfo>
@@ -14,6 +11,7 @@
 #include <QWidget>
 #include <QFile>
 
+#include "config_file_handler.hpp"
 #include "song_handler.hpp"
 #include "logs.hpp"
 
@@ -37,7 +35,7 @@ class Playlist : public QDialog
 	private:
 		Ui::Playlist *ui;
 
-		void read_config_file();
+		void read_config_file_and_set_playlist();
 		void config_watcher_to_songs_dir();
 		void songs_dir_watcher_event();
 		void refresh_songs_list();

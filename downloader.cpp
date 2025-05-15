@@ -18,36 +18,16 @@ Downloader::~Downloader()
 
 void Downloader::read_config_file()
 {
-	QFile config_file( "configs.json" );
-	if (!config_file.open( QFile::ReadOnly ))
+	auto result = Config_file_handler::get_values( {"songs_dir"} );
+	if (!result.has_value())
 	{
-		QString error = "ERROR IN OPENING CONFIG FILE!";
-
-		log.create_log( {error}, this, ERROR_TYPE::NON_FATAL );
-
-		return;
-	}
-
-	QByteArray buffer = config_file.readAll();
-	config_file.close();
-
-	QJsonParseError error;
-	QJsonDocument document = QJsonDocument::fromJson( buffer, &error );
-
-	if (error.error != QJsonParseError::NoError)
-	{
-		QString error_1 = "ERROR IN READING JSON DOCUMENT!";
-		QString error_2 = "IF YOU CHANGE THE CONFIG_FILE, PLEASE DELETE IT AND OPEN AGAIN!";
+		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
+		QString error_2 = "PLEASE, TRY AGAIN!";
 
 		log.create_log( {error_1, error_2}, this );
-
-		exit( EXIT_FAILURE );
 	}
 
-	QJsonObject object = document.object();
-
-	m_app_dir_path = object.value("app_dir").toString();
-	m_songs_dir_path = object.value( "songs_dir" ).toString();
+	m_songs_dir_path = result.value().at(0);
 }
 
 void Downloader::on_download_button_clicked()

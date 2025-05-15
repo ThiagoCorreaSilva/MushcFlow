@@ -12,11 +12,9 @@ Playlist::Playlist(QWidget *parent) :
 
 	m_layout = new QVBoxLayout( m_container );
 
-	read_config_file();
+	read_config_file_and_set_playlist();
 	refresh_songs_list();
 	config_watcher_to_songs_dir();
-
-	m_song_handler.set_playlist( m_songs_dir_path );
 }
 
 Playlist::~Playlist()
@@ -24,38 +22,20 @@ Playlist::~Playlist()
 	delete ui;
 }
 
-void Playlist::read_config_file()
+void Playlist::read_config_file_and_set_playlist()
 {
-	QFile config_file( "configs.json" );
-
-	if (!config_file.open( QFile::ReadOnly ))
+	auto result = Config_file_handler::get_values( {"songs_dir"} );
+	if (!result.has_value())
 	{
-		QString error_1 = "ERROR WHILE READING CONFIG_FILE!";
-		QString error_2 = "IF YOU MAKE ANY CHANGES IN COFIG_FILE, DELETE IT AND TRY AGAIN!";
-		log.create_log( {error_1, error_2}, this );
+		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
+		QString error_2 = "PLEASE, TRY AGAIN OR DELETE CONFIG_FILE";
 
+		log.create_log( {error_1, error_2}, this );
 		exit( EXIT_FAILURE );
 	}
 
-	QByteArray buffer = config_file.readAll();
-	config_file.close();
-
-	QJsonParseError error;
-	QJsonDocument document = QJsonDocument::fromJson( buffer, &error );
-
-	if (error.error != QJsonParseError::NoError)
-	{
-		QString error_1 = "ERROR IN READING JSON DATA IN CONFIG_FILE!";
-		QString error_2 = "PLEASE, DELETE CONFIG_FILE AND TRY AGAIN!";
-
-		log.create_log( {error_1, error_2}, this );
-
-		exit( EXIT_FAILURE );
-	}
-
-	QJsonObject object = document.object();
-
-	m_songs_dir_path = object.value("songs_dir").toString();
+	m_songs_dir_path = result.value().at(0);
+	m_song_handler.set_playlist( m_songs_dir_path );
 }
 
 void Playlist::config_watcher_to_songs_dir()
@@ -157,4 +137,3 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 	m_active_thumbnail = state;
 	refresh_songs_list();
 }
-

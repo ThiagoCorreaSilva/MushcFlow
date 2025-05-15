@@ -29,6 +29,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         downloader.hpp downloader.cpp downloader.ui song_handler.cpp
         song_handler.hpp
         playlist.hpp playlist.cpp playlist.ui
+        config_file_handler.hpp config_file_handler.cpp
 
 
     )

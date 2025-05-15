@@ -23,10 +23,9 @@ class Logs
 {
     private:
         void create_directory();
-
+        void show_message_box( QWidget *parent, const QString &log_name );
         QString get_error_message( const ERROR_TYPE &error );
 
     public:
         void create_log( const QStringList &log_message, QWidget *parent = nullptr, const ERROR_TYPE &error = ERROR_TYPE::FATAL, const std::source_location &location = std::source_location::current() );
-        void show_message_box( QWidget *parent, const QString &log_name );
 };

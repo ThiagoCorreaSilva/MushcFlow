@@ -2,8 +2,8 @@
 
 #include <QtMultimedia/QAudioOutput>
 #include <QtMultimedia/QMediaPlayer>
-#include <QFileInfo>
 #include <QFileInfoList>
+#include <QFileInfo>
 #include <QDebug>
 #include <QDir>
 
@@ -12,7 +12,7 @@ class Song_handler
 	private:
 		QMediaPlayer *m_player;
 		QAudioOutput *m_output;
-		QFileInfoList m_playlist_songs;
+		QStringList m_playlist_songs;
 
 	public:
 		Song_handler();
@@ -22,6 +22,7 @@ class Song_handler
 		void change_volume( const int &value );
 		void next_song();
 		void previous_song();
-		void song_ended();
+		void media_status_changed();
 		void pause_unpause_song();
+		void change_replay( const bool &state );
 };

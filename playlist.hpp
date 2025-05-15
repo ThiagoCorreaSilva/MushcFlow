@@ -34,6 +34,8 @@ class Playlist : public QDialog
 
 		void on_volume_slider_valueChanged(int value);
 
+		void on_checkBox_stateChanged(int state);
+
 	private:
 		Ui::Playlist *ui;
 
@@ -44,6 +46,7 @@ class Playlist : public QDialog
 		void refresh_songs_list();
 		void set_pix_map( QPushButton &button, const QString &path );
 		void play_song( const QFileInfo &song_info );
+		void change_song_text();
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;

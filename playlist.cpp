@@ -145,3 +145,8 @@ void Playlist::on_volume_slider_valueChanged(int value)
 	m_song_handler.change_volume( value );
 }
 
+void Playlist::on_checkBox_stateChanged(int state)
+{
+	m_song_handler.change_replay( state );
+}
+

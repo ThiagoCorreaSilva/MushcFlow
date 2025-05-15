@@ -7,7 +7,8 @@ Song_handler::Song_handler()
 
 	m_output->setVolume( 0.5 );
 	m_player->setAudioOutput( m_output );
-	m_player->connect( m_player, &QMediaPlayer::mediaStatusChanged, [this]{ song_ended(); } );
+	m_player->setLoops( -1 );
+	m_player->connect( m_player, &QMediaPlayer::mediaStatusChanged, [this]{ media_status_changed(); } );
 }
 
 void Song_handler::set_playlist( const QString &playlist_path )
@@ -22,8 +23,7 @@ void Song_handler::set_playlist( const QString &playlist_path )
 				continue;
 			}
 
-			qDebug() << file.fileName();
-			m_playlist_songs.push_back( file );
+			m_playlist_songs.push_back( file.absoluteFilePath() );
 		}
 	}
 }
@@ -55,15 +55,20 @@ void Song_handler::previous_song()
 
 }
 
-void Song_handler::song_ended()
+void Song_handler::media_status_changed()
 {
-	if (m_player->mediaStatus() == QMediaPlayer::EndOfMedia)
+	if (m_player->mediaStatus() != QMediaPlayer::EndOfMedia)
 	{
-
+		return;
 	}
 }
 
 void Song_handler::pause_unpause_song()
 {
 	(m_player->isPlaying()) ? m_player->pause() : m_player->play();
+}
+
+void Song_handler::change_replay( const bool &state )
+{
+	( state ) ? m_player->setLoops( -1 ) : m_player->setLoops( 1 );
 }

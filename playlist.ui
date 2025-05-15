@@ -181,6 +181,25 @@
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>396</x>
+        <y>0</y>
+        <width>91</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Loop</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+      <property name="autoExclusive">
+       <bool>false</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QSlider" name="volume_slider">
      <property name="geometry">

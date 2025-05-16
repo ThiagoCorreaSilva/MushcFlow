@@ -85,9 +85,9 @@
      <widget class="QPushButton" name="next_button">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>230</x>
         <y>0</y>
-        <width>51</width>
+        <width>41</width>
         <height>51</height>
        </rect>
       </property>
@@ -120,7 +120,7 @@
        <rect>
         <x>150</x>
         <y>0</y>
-        <width>51</width>
+        <width>41</width>
         <height>51</height>
        </rect>
       </property>
@@ -151,9 +151,9 @@
      <widget class="QPushButton" name="play_pause_button">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>190</x>
         <y>0</y>
-        <width>51</width>
+        <width>41</width>
         <height>51</height>
        </rect>
       </property>
@@ -181,24 +181,169 @@
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QComboBox" name="speed_combo">
       <property name="geometry">
        <rect>
-        <x>396</x>
+        <x>80</x>
+        <y>10</y>
+        <width>65</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="currentText">
+       <string notr="true">1x</string>
+      </property>
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>0.25x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0.50x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>0.75x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1.25x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1.50x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>1.75x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>2x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>3x</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>4x</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
         <y>0</y>
-        <width>91</width>
+        <width>81</width>
         <height>51</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
       <property name="text">
-       <string>Loop</string>
+       <string>Speed:</string>
       </property>
-      <property name="checked">
-       <bool>true</bool>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignCenter</set>
       </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>-20</y>
+        <width>221</width>
+        <height>71</height>
+       </rect>
       </property>
+      <property name="title">
+       <string>GroupBox</string>
+      </property>
+      <widget class="QCheckBox" name="loop_check">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>20</y>
+         <width>81</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string notr="true">Loop 🔁</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="random_track_check">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>131</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>9</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LayoutDirection::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>🔀 Random Track</string>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QSlider" name="volume_slider">

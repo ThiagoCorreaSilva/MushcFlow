@@ -142,7 +142,34 @@ void Playlist::on_volume_slider_valueChanged(int value)
 	m_song_handler.change_volume( value );
 }
 
-void Playlist::on_checkBox_stateChanged(int state)
+void Playlist::on_loop_check_stateChanged(int state)
 {
 	m_song_handler.change_replay( state );
 }
+
+void Playlist::on_previous_button_clicked()
+{
+	m_song_handler.previous_song();
+}
+
+
+void Playlist::on_next_button_clicked()
+{
+	m_song_handler.next_song();
+}
+
+
+void Playlist::on_random_track_check_stateChanged(int state)
+{
+	m_song_handler.change_random_track_state( state );
+}
+
+
+void Playlist::on_speed_combo_currentTextChanged(const QString &arg1)
+{
+	QString speed = arg1;
+	speed.remove("x");
+
+	m_song_handler.set_song_speed( speed.toFloat() );
+}
+

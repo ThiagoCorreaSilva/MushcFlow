@@ -8,16 +8,25 @@
 #include <QLabel>
 #include <QDir>
 
+#include <algorithm>
+
 class Song_handler
 {
 	private:
 		QMediaPlayer *m_player;
 		QAudioOutput *m_output;
 		QFileInfoList m_playlist_songs;
+
 		int m_current_song_index;
 		int m_max_song_index;
-		QLabel *m_song_label;
+		float m_song_speed = 1;
+		bool m_random_track;
 
+		QLabel *m_song_label;
+		QList <int> m_random_index;
+
+		void randomize_playlist_index();
+		int get_random_index();
 		void debug_mode();
 
 	public:
@@ -32,4 +41,6 @@ class Song_handler
 		void media_status_changed();
 		void pause_unpause_song();
 		void change_replay( const bool &state );
+		void change_random_track_state( const bool &state );
+		void set_song_speed( const float &value );
 };

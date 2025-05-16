@@ -27,7 +27,6 @@ class Song_handler
 
 		void randomize_playlist_index();
 		int get_random_index();
-		void debug_mode();
 
 	public:
 		Song_handler();

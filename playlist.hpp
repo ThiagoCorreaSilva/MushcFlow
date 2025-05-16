@@ -36,15 +36,15 @@ class Playlist : public QDialog
 
 		void on_volume_slider_valueChanged(int value);
 
-		void on_loop_check_stateChanged(int state);
-
 		void on_previous_button_clicked();
 
 		void on_next_button_clicked();
 
-		void on_random_track_check_stateChanged(int arg1);
-
 		void on_speed_combo_currentTextChanged(const QString &speed);
+
+		void on_random_track_check_clicked(bool checked);
+
+		void on_loop_check_clicked(bool checked);
 
 	private:
 		Ui::Playlist *ui;

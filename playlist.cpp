@@ -146,31 +146,30 @@ void Playlist::on_volume_slider_valueChanged(int value)
 	m_song_handler.change_volume( value );
 }
 
-void Playlist::on_loop_check_stateChanged(int state)
-{
-	m_song_handler.change_replay( state );
-}
-
 void Playlist::on_previous_button_clicked()
 {
 	m_song_handler.previous_song();
 }
-
 
 void Playlist::on_next_button_clicked()
 {
 	m_song_handler.next_song();
 }
 
-
-void Playlist::on_random_track_check_stateChanged(int state)
-{
-	m_song_handler.change_random_track_state( state );
-}
-
-
 void Playlist::on_speed_combo_currentTextChanged(const QString &speed)
 {
 	m_song_handler.set_song_speed( speed );
+}
+
+
+void Playlist::on_random_track_check_clicked(bool checked)
+{
+	m_song_handler.change_random_track_state( checked );
+}
+
+
+void Playlist::on_loop_check_clicked(bool checked)
+{
+	m_song_handler.change_replay( checked );
 }
 

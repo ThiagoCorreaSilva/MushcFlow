@@ -35,7 +35,6 @@ void Playlist::read_config_file_and_make_class_configs()
 	}
 
 	m_songs_dir_path = result.value().value("songs_dir");
-	m_song_handler.set_playlist( m_songs_dir_path );
 	ui->volume_label->setText( "Volume: " + QString::number( 50 ) );
 }
 
@@ -66,16 +65,14 @@ void Playlist::refresh_songs_list()
 
 	// Delete all childrens in m_container (who have a QVBoxLayout)
 	qDeleteAll( m_container->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly) );
+
 	QFileInfoList files_info = songs_dir.entryInfoList();
+	m_song_handler.set_playlist( files_info );
+
 	int total_files = 0;
 
 	for ( auto &file : std::as_const(files_info) )
 	{
-		if (file.isDir())
-		{
-			continue;
-		}
-
 		if (!file.fileName().contains( ".mp3" ))
 		{
 			continue;
@@ -122,9 +119,9 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 
 void Playlist::play_song( const QFileInfo &song_info )
 {
-	ui->song_label->setText( song_info.fileName().remove(".mp3") );
 	ui->tabWidget->setCurrentIndex( 0 );
 
+	m_song_handler.set_song_label( *ui->song_label );
 	m_song_handler.play_song( song_info );
 }
 
@@ -149,4 +146,3 @@ void Playlist::on_checkBox_stateChanged(int state)
 {
 	m_song_handler.change_replay( state );
 }
-

@@ -11,6 +11,8 @@
 #include <QWidget>
 #include <QFile>
 
+#include <optional>
+
 #include "config_file_handler.hpp"
 #include "song_handler.hpp"
 #include "logs.hpp"

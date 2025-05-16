@@ -42,5 +42,5 @@ class Song_handler
 		void pause_unpause_song();
 		void change_replay( const bool &state );
 		void change_random_track_state( const bool &state );
-		void set_song_speed( const float &value );
+		void set_song_speed( const QString &value );
 };

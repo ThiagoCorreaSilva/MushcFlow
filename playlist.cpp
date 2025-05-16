@@ -47,7 +47,6 @@ void Playlist::config_watcher_to_songs_dir()
 void Playlist::songs_dir_watcher_event()
 {
 	refresh_songs_list();
-	m_song_handler.reset_playlist();
 }
 
 void Playlist::refresh_songs_list()
@@ -67,6 +66,8 @@ void Playlist::refresh_songs_list()
 	qDeleteAll( m_container->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly) );
 
 	QFileInfoList files_info = songs_dir.entryInfoList();
+
+	m_song_handler.reset_playlist();
 	m_song_handler.set_playlist( files_info );
 
 	int total_files = 0;
@@ -122,6 +123,9 @@ void Playlist::play_song( const QFileInfo &song_info )
 	ui->tabWidget->setCurrentIndex( 0 );
 
 	m_song_handler.set_song_label( *ui->song_label );
+	m_song_handler.set_song_speed( ui->speed_combo->currentText() );
+	m_song_handler.change_replay( ui->loop_check->isChecked() );
+	m_song_handler.change_random_track_state( ui->random_track_check->isChecked() );
 	m_song_handler.play_song( song_info );
 }
 
@@ -165,11 +169,8 @@ void Playlist::on_random_track_check_stateChanged(int state)
 }
 
 
-void Playlist::on_speed_combo_currentTextChanged(const QString &arg1)
+void Playlist::on_speed_combo_currentTextChanged(const QString &speed)
 {
-	QString speed = arg1;
-	speed.remove("x");
-
-	m_song_handler.set_song_speed( speed.toFloat() );
+	m_song_handler.set_song_speed( speed );
 }
 

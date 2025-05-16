@@ -44,7 +44,7 @@ class Playlist : public QDialog
 
 		void on_random_track_check_stateChanged(int arg1);
 
-		void on_speed_combo_currentTextChanged(const QString &arg1);
+		void on_speed_combo_currentTextChanged(const QString &speed);
 
 	private:
 		Ui::Playlist *ui;

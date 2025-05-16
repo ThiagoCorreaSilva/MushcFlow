@@ -25,13 +25,27 @@ void Song_handler::set_playlist( const QFileInfoList &playlist )
 		m_playlist_songs.push_back( file );
 	}
 
-	m_max_song_index = m_playlist_songs.size() - 1;
+	m_max_song_index = m_playlist_songs.size();
 	randomize_playlist_index();
 }
 
 void Song_handler::reset_playlist()
 {
 	m_playlist_songs.clear();
+}
+
+
+void Song_handler::randomize_playlist_index()
+{
+	m_random_index.clear();
+
+	for ( int i = 0; i < m_playlist_songs.size(); i++ )
+	{
+		m_random_index.append( i );
+	}
+	qDebug() << "SIZE: " << m_random_index.size();
+
+	std::random_shuffle( m_random_index.begin(), m_random_index.end());
 }
 
 void Song_handler::set_song_label( QLabel &song_label )
@@ -51,13 +65,35 @@ void Song_handler::play_song( const QFileInfo &song_file )
 
 	m_player->setPlaybackRate( m_song_speed );
 	m_player->play();
-	//debug_mode();
+
+	if (!m_random_track)
+	{
+		debug_mode();
+	}
 }
 
 void Song_handler::debug_mode()
 {
 	int next_song_index;
 	int previous_song_index;
+
+	if ((m_current_song_index + 1) == m_max_song_index)
+	{
+		next_song_index = 0;
+	}
+	else
+	{
+		next_song_index = ++m_current_song_index;
+	}
+
+	if ((m_current_song_index - 1) < 0)
+	{
+		previous_song_index = m_max_song_index;
+	}
+	else
+	{
+		previous_song_index = --m_current_song_index;
+	}
 
 	qDebug() << "\nCURRENT INDEX: " << m_current_song_index;
 	qDebug() << "CURRENT SONG: " << m_playlist_songs.at( m_current_song_index ).fileName().remove(".mp3");
@@ -82,23 +118,22 @@ void Song_handler::change_volume( const int &value )
 
 void Song_handler::next_song()
 {
-	if (m_playlist_songs.empty())
+	if (m_playlist_songs.empty() || !m_player->isPlaying())
 	{
-		qDebug() << "EMPTY PLAYLIST!";
-		return;
-	}
-
-	if ((m_current_song_index + 1) > (m_max_song_index - 1))
-	{
-		m_current_song_index = 0;
-		play_song( m_playlist_songs.at( m_current_song_index ) );
-
 		return;
 	}
 
 	if (m_random_track)
 	{
 		m_current_song_index = get_random_index();
+		play_song( m_playlist_songs.at( m_current_song_index ) );
+
+		return;
+	}
+
+	if ((m_current_song_index + 1) == m_max_song_index)
+	{
+		m_current_song_index = 0;
 		play_song( m_playlist_songs.at( m_current_song_index ) );
 
 		return;
@@ -113,25 +148,25 @@ int Song_handler::get_random_index()
 	static int index = -1;
 	++index;
 
-	if (index == m_playlist_songs.size())
+	if (index == m_max_song_index)
 	{
 		index = 0;
 	}
 
+	qDebug() << "RANDOM INDEX: " << m_random_index[index];
 	return m_random_index[ index ];
 }
 
 void Song_handler::previous_song()
 {
-	if (m_playlist_songs.empty())
+	if (m_playlist_songs.empty() || !m_player->isPlaying())
 	{
-		qDebug() << "EMPTY PLAYLIST!";
 		return;
 	}
 
 	if ((m_current_song_index - 1) < 0)
 	{
-		m_current_song_index = m_max_song_index;
+		m_current_song_index = m_max_song_index - 1;
 		play_song( m_playlist_songs.at( m_current_song_index ) );
 
 		return;
@@ -166,21 +201,11 @@ void Song_handler::change_random_track_state( const bool &state )
 	m_random_track = state;
 }
 
-void Song_handler::randomize_playlist_index()
+void Song_handler::set_song_speed( const QString &speed )
 {
-	m_random_index.clear();
+	QString value = speed;
+	value.remove("x");
 
-	for ( int i = 0; i < m_playlist_songs.size(); i++ )
-	{
-		m_random_index.append( i );
-	}
-	qDebug() << "SIZE: " << m_random_index.size();
-
-	std::random_shuffle( m_random_index.begin(), m_random_index.end());
-}
-
-void Song_handler::set_song_speed( const float &speed )
-{
-	m_song_speed = speed;
+	m_song_speed = value.toFloat();
 	m_player->setPlaybackRate( m_song_speed );
 }

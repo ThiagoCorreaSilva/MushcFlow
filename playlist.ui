@@ -55,9 +55,12 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>12</pointsize>
+        <pointsize>11</pointsize>
         <bold>true</bold>
        </font>
+      </property>
+      <property name="accessibleName">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
@@ -195,7 +198,7 @@
        <rect>
         <x>84</x>
         <y>10</y>
-        <width>61</width>
+        <width>66</width>
         <height>31</height>
        </rect>
       </property>
@@ -275,7 +278,7 @@
       <property name="font">
        <font>
         <family>Arial</family>
-        <pointsize>10</pointsize>
+        <pointsize>9</pointsize>
         <bold>true</bold>
        </font>
       </property>

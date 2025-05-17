@@ -90,7 +90,7 @@ void Playlist::refresh_songs_list()
 			set_pix_map( *button, file.filePath().remove(".mp3") );
 		}
 
-		connect(button, &QPushButton::clicked, this, [ this, file ]{ play_song( file ); } );
+		connect(button, &QPushButton::clicked, this, [ this, file ]{ button_action( const_cast<QFileInfo&>(file)); } );
 
 		m_layout->addWidget( button );
 
@@ -118,6 +118,35 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 	button.setPalette( palette );
 }
 
+void Playlist::button_action( QFileInfo &song_info )
+{
+	QString song_name = song_info.fileName().remove(".mp3");
+
+	QMessageBox question_box;
+
+	question_box.setIcon( QMessageBox::Question );
+	question_box.setWindowTitle( tr("Question!") );
+	question_box.setText( tr("What you want to make with: ") + '\n' + song_name );
+	QAbstractButton *yes_button = question_box.addButton( tr("Play"), QMessageBox::AcceptRole );
+	QAbstractButton *nothing_button = question_box.addButton( tr("Nothing"), QMessageBox::NoRole);
+	QAbstractButton *delete_button = question_box.addButton( tr("Delete"), QMessageBox::DestructiveRole);
+
+	question_box.exec();
+
+	if (question_box.clickedButton() == yes_button)
+	{
+		play_song( song_info );
+		return;
+	}
+
+	if (question_box.clickedButton() == delete_button)
+	{
+		delete_song( song_info );
+		return;
+	}
+
+}
+
 void Playlist::play_song( const QFileInfo &song_info )
 {
 	ui->tabWidget->setCurrentIndex( 0 );
@@ -127,6 +156,19 @@ void Playlist::play_song( const QFileInfo &song_info )
 	m_song_handler.change_replay( ui->loop_check->isChecked() );
 	m_song_handler.change_random_track_state( ui->random_track_check->isChecked() );
 	m_song_handler.play_song( song_info );
+}
+
+void Playlist::delete_song( QFileInfo &song_info )
+{
+	ui->tabWidget->setCurrentIndex( 1 );
+	m_song_handler.stop_song();
+
+	QString song_thumbnail = song_info.absoluteFilePath().remove(".mp3") + ".jpg";
+	qDebug() << song_info.absoluteFilePath();
+	QFile::remove( song_thumbnail );
+	QFile::remove( song_info.absoluteFilePath() );
+
+	refresh_songs_list();
 }
 
 void Playlist::on_play_pause_button_clicked()

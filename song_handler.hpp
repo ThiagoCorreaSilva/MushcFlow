@@ -34,6 +34,7 @@ class Song_handler
 		void set_song_label( QLabel &song_label );
 		void reset_playlist();
 		void play_song( const QFileInfo &song_file );
+		void stop_song();
 		void change_volume( const int &value );
 		void next_song();
 		void previous_song();

@@ -67,6 +67,12 @@ void Song_handler::play_song( const QFileInfo &song_file )
 	m_player->play();
 }
 
+void Song_handler::stop_song()
+{
+	m_player->stop();
+	m_song_label->setText( "" );
+}
+
 void Song_handler::change_volume( const int &value )
 {
 	float volume = ( static_cast<float>( value ) / 100 );

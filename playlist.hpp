@@ -3,8 +3,10 @@
 #include <QDialog>
 
 #include <QFileSystemWatcher>
+#include <QAbstractButton>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QFileInfo>
 #include <QPalette>
 #include <QPixmap>
@@ -55,7 +57,9 @@ class Playlist : public QDialog
 		void songs_dir_watcher_event();
 		void refresh_songs_list();
 		void set_pix_map( QPushButton &button, const QString &path );
+		void button_action( QFileInfo &song_info );
 		void play_song( const QFileInfo &song_info );
+		void delete_song( QFileInfo &song_info );
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;

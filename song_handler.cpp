@@ -50,10 +50,13 @@ void Song_handler::randomize_playlist_index()
 	std::random_shuffle( m_random_index.begin(), m_random_index.end());
 }
 
-void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider )
+void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label )
 {
 	m_song_label = &song_label;
 	m_position_slider = &position_slider;
+
+	m_duration_label = &duration_label;
+	m_position_label = &position_label;
 }
 
 void Song_handler::play_song( const QFileInfo &song_file )
@@ -72,7 +75,10 @@ void Song_handler::stop_song()
 {
 	m_player->setSource( QUrl("") );
 	m_player->stop();
+
 	m_song_label->setText( "" );
+	m_position_label->setText( "" );
+	m_duration_label->setText( "" );
 }
 
 void Song_handler::change_volume( const int &value )
@@ -176,15 +182,26 @@ void Song_handler::set_song_speed( const QString &speed )
 
 void Song_handler::update_position_slider( const quint64 &position )
 {
+	int seconds = ( position / 1000 ) % 60;
+	int minutes = ( position / 60000 ) % 60;
+
+	QTime time( minutes, seconds );
+	m_position_label->setText( time.toString() );
 	m_position_slider->setValue( position );
 }
 
 void Song_handler::duration_changed( const quint64 &duration )
 {
+	int seconds = ( duration / 1000 ) % 60;
+	int minutes = ( duration / 60000 ) % 60;
+
+	QTime time( minutes, seconds );
+	m_duration_label->setText(time.toString());
 	m_position_slider->setMaximum( duration );
 }
 
 void Song_handler::change_song_position( const quint64 &position )
 {
+
 	m_player->setPosition( position );
 }

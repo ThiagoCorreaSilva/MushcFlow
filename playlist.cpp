@@ -156,7 +156,7 @@ void Playlist::play_song( const QFileInfo &song_info )
 {
 	ui->tabWidget->setCurrentIndex( 0 );
 
-	m_song_handler.set_ui_elements( *ui->song_label, *ui->position_slider );
+	m_song_handler.set_ui_elements( *ui->song_label, *ui->position_slider, *ui->duration_label, *ui->position_label );
 	m_song_handler.set_song_speed( ui->speed_combo->currentText() );
 	m_song_handler.change_replay( ui->loop_check->isChecked() );
 	m_song_handler.change_random_track_state( ui->random_track_check->isChecked() );

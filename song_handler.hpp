@@ -26,6 +26,8 @@ class Song_handler
 		bool m_loop_track;
 
 		QLabel *m_song_label;
+		QLabel *m_duration_label;
+		QLabel *m_position_label;
 		QSlider *m_position_slider;
 		QList <int> m_random_index;
 
@@ -38,7 +40,7 @@ class Song_handler
 	public:
 		Song_handler();
 		void set_playlist( const QFileInfoList &playlist_path );
-		void set_ui_elements( QLabel &song_label, QSlider &position_slider );
+		void set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label );
 		void reset_playlist();
 		void play_song( const QFileInfo &song_file );
 		void stop_song();

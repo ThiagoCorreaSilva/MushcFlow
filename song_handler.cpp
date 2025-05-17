@@ -69,6 +69,7 @@ void Song_handler::play_song( const QFileInfo &song_file )
 
 void Song_handler::stop_song()
 {
+	m_player->setSource( QUrl("") );
 	m_player->stop();
 	m_song_label->setText( "" );
 }
@@ -81,7 +82,7 @@ void Song_handler::change_volume( const int &value )
 
 void Song_handler::next_song()
 {
-	if (m_playlist_songs.empty() || !m_player->isPlaying())
+	if (m_playlist_songs.empty() || m_player->source().isEmpty())
 	{
 		return;
 	}
@@ -140,12 +141,11 @@ void Song_handler::previous_song()
 
 void Song_handler::media_status_changed()
 {
-	if (m_player->mediaStatus() != QMediaPlayer::EndOfMedia)
+	if (m_player->mediaStatus() == QMediaPlayer::EndOfMedia)
 	{
+		next_song();
 		return;
 	}
-
-	next_song();
 }
 
 void Song_handler::pause_unpause_song()
@@ -155,7 +155,8 @@ void Song_handler::pause_unpause_song()
 
 void Song_handler::change_replay( const bool &state )
 {
-	( state ) ? m_player->setLoops( -1 ) : m_player->setLoops( 1 );
+	m_loop_track = state;
+	( m_loop_track ) ? m_player->setLoops( -1 ) : m_player->setLoops( 1 );
 }
 
 void Song_handler::change_random_track_state( const bool &state )

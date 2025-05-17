@@ -139,6 +139,11 @@ void Playlist::button_action( QFileInfo &song_info )
 		return;
 	}
 
+	if (question_box.clickedButton() == nothing_button)
+	{
+		return;
+	}
+
 	if (question_box.clickedButton() == delete_button)
 	{
 		delete_song( song_info );
@@ -160,6 +165,7 @@ void Playlist::play_song( const QFileInfo &song_info )
 
 void Playlist::delete_song( QFileInfo &song_info )
 {
+	qDebug() << "DELETED";
 	ui->tabWidget->setCurrentIndex( 1 );
 	m_song_handler.stop_song();
 
@@ -203,14 +209,12 @@ void Playlist::on_speed_combo_currentTextChanged(const QString &speed)
 	m_song_handler.set_song_speed( speed );
 }
 
-
-void Playlist::on_random_track_check_clicked(bool checked)
+void Playlist::on_random_track_check_toggled(bool checked)
 {
 	m_song_handler.change_random_track_state( checked );
 }
 
-
-void Playlist::on_loop_check_clicked(bool checked)
+void Playlist::on_loop_check_toggled(bool checked)
 {
 	m_song_handler.change_replay( checked );
 }

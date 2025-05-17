@@ -20,7 +20,9 @@ class Song_handler
 		int m_current_song_index;
 		int m_max_song_index;
 		float m_song_speed = 1;
+
 		bool m_random_track;
+		bool m_loop_track;
 
 		QLabel *m_song_label;
 		QList <int> m_random_index;

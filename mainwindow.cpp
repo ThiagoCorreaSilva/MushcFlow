@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::centralize_window( const QApplication &app )
+void MainWindow::centralize_window( QApplication &app )
 {
     int width = frameGeometry().width();
     int height = frameGeometry().height();

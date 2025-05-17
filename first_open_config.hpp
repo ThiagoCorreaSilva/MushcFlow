@@ -4,7 +4,6 @@
 
 #include <QStandardPaths>
 #include <QJsonDocument>
-#include <QTranslator>
 #include <QJsonObject>
 #include <QMessageBox>
 #include <QFileDialog>

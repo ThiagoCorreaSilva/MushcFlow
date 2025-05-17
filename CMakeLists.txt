@@ -33,6 +33,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         config_file_handler.hpp config_file_handler.cpp
         Images.qrc
     )
+
 else()
     if(ANDROID)
         add_library(MushcFlow SHARED

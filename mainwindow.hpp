@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
     public:
         MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
-        void centralize_window( const QApplication &app );
+        void centralize_window( QApplication &app );
 
     private:
         Ui::MainWindow *ui;

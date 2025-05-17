@@ -18,6 +18,8 @@ A Log System who will show you if a error occurred! (the folder with logs is on 
 
 You can also add songs who you already have in your device!
 
+You can change the Songs folder! (need to open "configs.json" file in MushcFlow root folder!)
+
 ## Support
 System: Only available in Windows
 
@@ -31,6 +33,11 @@ Thumbnail format: jpg
 Compiling: you can just clone or download source code and open with QtCreator
 
 Installation: you can use the file "MushcFlow_Installer.exe" or if you dont want the installer, download the "MushcFlow.zip" and open "MushcFlow.exe"!
+
+## Help
+If you app dont open or another error occure to you, please go to MushcFlow root folder and delete the file "configs.json"! and open MushcFlow again
+
+The "configs.json" is not responsable for your songs, this file is only to MushcFlow know where is Song Folder
 
 ## Libraries used
 Qt (for GUI and code)

@@ -31,6 +31,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         song_handler.hpp
         playlist.hpp playlist.cpp playlist.ui
         config_file_handler.hpp config_file_handler.cpp
+        Images.qrc
     )
 else()
     if(ANDROID)

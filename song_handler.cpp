@@ -9,6 +9,8 @@ Song_handler::Song_handler()
 	m_player->setAudioOutput( m_output );
 	m_player->setLoops( -1 );
 	m_player->connect( m_player, &QMediaPlayer::mediaStatusChanged, [this]{ media_status_changed(); } );
+	m_player->connect( m_player, &QMediaPlayer::positionChanged, [this]( quint64 position ){  update_position_slider( position ) ;} );
+	m_player->connect( m_player, &QMediaPlayer::durationChanged, [this]( quint64 duration ) { duration_changed( duration ) ;} );
 }
 
 void Song_handler::set_playlist( const QFileInfoList &playlist )
@@ -48,20 +50,19 @@ void Song_handler::randomize_playlist_index()
 	std::random_shuffle( m_random_index.begin(), m_random_index.end());
 }
 
-void Song_handler::set_song_label( QLabel &song_label )
+void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider )
 {
 	m_song_label = &song_label;
+	m_position_slider = &position_slider;
 }
 
 void Song_handler::play_song( const QFileInfo &song_file )
 {
 	m_current_song_index = m_playlist_songs.indexOf( song_file );
-	m_player->setSource( m_playlist_songs.at( m_current_song_index ).absoluteFilePath() );
+	m_player->setSource( QUrl::fromLocalFile( m_playlist_songs.at( m_current_song_index ).absoluteFilePath() ));
 
-	if (m_song_label != nullptr)
-	{
-		m_song_label->setText( m_player->source().fileName().remove(".mp3") );
-	}
+	m_song_label->setText( m_player->source().fileName().remove(".mp3") );
+	m_position_slider->setValue( 0 );
 
 	m_player->setPlaybackRate( m_song_speed );
 	m_player->play();
@@ -171,4 +172,19 @@ void Song_handler::set_song_speed( const QString &speed )
 
 	m_song_speed = value.toFloat();
 	m_player->setPlaybackRate( m_song_speed );
+}
+
+void Song_handler::update_position_slider( const quint64 &position )
+{
+	m_position_slider->setValue( position );
+}
+
+void Song_handler::duration_changed( const quint64 &duration )
+{
+	m_position_slider->setMaximum( duration );
+}
+
+void Song_handler::change_song_position( const quint64 &position )
+{
+	m_player->setPosition( position );
 }

@@ -4,6 +4,7 @@
 #include <QtMultimedia/QMediaPlayer>
 #include <QFileInfoList>
 #include <QFileInfo>
+#include <QSlider>
 #include <QDebug>
 #include <QLabel>
 #include <QDir>
@@ -25,15 +26,19 @@ class Song_handler
 		bool m_loop_track;
 
 		QLabel *m_song_label;
+		QSlider *m_position_slider;
 		QList <int> m_random_index;
 
 		void randomize_playlist_index();
 		int get_random_index();
 
+		void update_position_slider( const quint64 &position );
+		void duration_changed( const quint64 &duration );
+
 	public:
 		Song_handler();
 		void set_playlist( const QFileInfoList &playlist_path );
-		void set_song_label( QLabel &song_label );
+		void set_ui_elements( QLabel &song_label, QSlider &position_slider );
 		void reset_playlist();
 		void play_song( const QFileInfo &song_file );
 		void stop_song();
@@ -45,4 +50,5 @@ class Song_handler
 		void change_replay( const bool &state );
 		void change_random_track_state( const bool &state );
 		void set_song_speed( const QString &value );
+		void change_song_position( const quint64 &position );
 };

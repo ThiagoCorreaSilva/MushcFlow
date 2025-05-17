@@ -43,9 +43,12 @@ class Playlist : public QDialog
 		void on_next_button_clicked();
 
 		void on_speed_combo_currentTextChanged(const QString &speed);
+
 		void on_random_track_check_toggled(bool checked);
 
 		void on_loop_check_toggled(bool checked);
+
+		void on_position_slider_actionTriggered(int action);
 
 	private:
 		Ui::Playlist *ui;

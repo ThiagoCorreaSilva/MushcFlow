@@ -38,11 +38,21 @@ void Downloader::on_download_button_clicked()
 		return;
 	}
 
-	start_download();
+	QtConcurrent::run( QThreadPool::globalInstance(), [this]{ start_download() ;} );
 }
 
 void Downloader::start_download()
 {
+	static bool on_download = false;
+	if (on_download)
+	{
+		return;
+	}
+
+	on_download = true;
+	ui->status_label->setText( tr("Working... WAIT!") );
+
+	qDebug() << "started";
 	QString system_type = QSysInfo::productType();
 	QString yt_dlp_binary = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
 	QString yt_dlp_flags = yt_dlp_binary + " --ies all,-generic ";
@@ -53,29 +63,26 @@ void Downloader::start_download()
 	QString ffmpeg_location =  (system_type == "windows") ? " --ffmpeg-location \"ffmpeg/\"" : "";
 	QString command = yt_dlp_flags + yt_dlp_download_thumb + yt_dlp_song_format + yt_dlp_path + yt_dlp_url + ffmpeg_location;
 
+	ui->url_input->setReadOnly( true );
+	ui->url_input->clear();
+	ui->url_input->setFocus();
+
 	QProcess process;
 	process.startCommand( command );
 	process.waitForFinished();
 
-	ui->url_input->clear();
-	ui->url_input->setFocus();
-
 	if (process.exitCode() != 0)
 	{
-		QMessageBox::warning( this, "Error", tr("Download Failure! Read Log to more informations") );
+		on_download = false;
 
 		ui->status_label->setText( "ERROR!" );
-
-		QStringList error_list;
-		QString error_1 = "ERROR IN DOWNLOAD SONG!";
-		QString error_2 = "SEE IF YOU SONG URL IS VALID AND TRY AGAIN!";
-
-		error_list.push_back( error_1 );
-		error_list.push_back( error_2 );
-		log.create_log( error_list, this, ERROR_TYPE::NON_FATAL );
+		ui->url_input->setReadOnly( false );
 
 		return;
 	}
 
     ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
+	ui->url_input->setReadOnly( false );
+
+	on_download = false;
 }

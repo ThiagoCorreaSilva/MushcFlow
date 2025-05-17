@@ -2,9 +2,10 @@
 
 #include <QDialog>
 
-#include <QMessageBox>
+#include <QtConcurrent/QtConcurrent>
 #include <QProcess>
 #include <QSysInfo>
+#include <QThread>
 #include <QFile>
 
 #include "config_file_handler.hpp"

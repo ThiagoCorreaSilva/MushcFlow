@@ -48,7 +48,7 @@ class Playlist : public QDialog
 
 		void on_loop_check_toggled(bool checked);
 
-		void on_position_slider_actionTriggered(int action);
+		void on_position_slider_sliderMoved(int position);
 
 	private:
 		Ui::Playlist *ui;

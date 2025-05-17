@@ -405,6 +405,9 @@
        <height>31</height>
       </rect>
      </property>
+     <property name="maximum">
+      <number>30000</number>
+     </property>
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
      </property>

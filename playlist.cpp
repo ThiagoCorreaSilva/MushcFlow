@@ -219,8 +219,7 @@ void Playlist::on_loop_check_toggled(bool checked)
 	m_song_handler.change_replay( checked );
 }
 
-void Playlist::on_position_slider_actionTriggered(int action)
+void Playlist::on_position_slider_sliderMoved(int position)
 {
-	m_song_handler.change_song_position( action );
+	m_song_handler.change_song_position( position );
 }
-

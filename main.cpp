@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     w.centralize_window( a );
+    w.setWindowIcon( QIcon( ":/logo/MushcFlowLogo.png" ) );
 
     QSplashScreen *splash_screen = new QSplashScreen;
     splash_screen->setPixmap( QPixmap( ":/logo/MushcFlowLogo.png" ) );

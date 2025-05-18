@@ -27,7 +27,7 @@ Song format: mp3
 
 Thumbnail format: jpg
 
-## Compiling/Installantion 
+## Compiling/Instalantion 
 ⚠️ WARNING! its strongly recommended if you want to change something in the source code, use the app QtCreator version 6+!
 
 Compiling: you can just clone or download source code and open with QtCreator

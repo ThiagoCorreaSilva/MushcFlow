@@ -14,7 +14,7 @@ You can change the speed of song!🕰️
 
 Random track and loop!📻
 
-A Log System who will show you if a error occurred! (the folder with logs is in root folder)📢
+A Log System who will show you if a error occurred! (the folder with logs is in the root folder)📢
 
 You can also add songs who you already have in your device!
 

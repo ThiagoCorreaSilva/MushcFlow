@@ -27,15 +27,15 @@ Song format: mp3
 
 Thumbnail format: jpg
 
-## Compiling/Instalantion 
-⚠️ WARNING! its strongly recommended if you want to change something in the source code, use the app QtCreator version 6+!
+## Compiling/Installantion 
+⚠️ WARNING! If you want to change something in the source code, I strongly recommend using the app QtCreator version 6+!
 
-Compiling: you can just clone or download source code and open with QtCreator
+Compiling: you can just clone or download the source code and open with QtCreator
 
-Installation: you can use the file "MushcFlow_Installer.exe" or if you dont want the installer, download the "MushcFlow.zip" and open "MushcFlow.exe"! (using the installer, you need to run the MushcFlow with ADM!)
+Installation: you can use the file "MushcFlow_Installer.exe" or if you don`t want to use the installer, download the "MushcFlow.zip" and open "MushcFlow.exe"! (to use the installer, you need to open it with ADM!)
 
 ## Help
-If you app dont open or another error occure to you, please go to MushcFlow root folder and delete the file "configs.json"! and open MushcFlow again
+If your app don`t open or another error occure to you, please go to MushcFlow root folder and delete the file "configs.json"! and open MushcFlow again
 
 The "configs.json" is not responsable for your songs, this file is only to MushcFlow know where is Song Folder
 

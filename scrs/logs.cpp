@@ -1,4 +1,4 @@
-#include "logs.hpp"
+#include "../headers/logs.hpp"
 
 void Logs::create_log( const QStringList &log_messages, QWidget *parent, const ERROR_TYPE &error, const std::source_location &location )
 {

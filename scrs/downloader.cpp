@@ -1,5 +1,5 @@
-#include "downloader.hpp"
-#include "ui_downloader.h"
+#include "../headers/downloader.hpp"
+#include "uis/ui_downloader.h"
 
 Downloader::Downloader(QWidget *parent) :
 	QDialog(parent),

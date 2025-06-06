@@ -6,8 +6,14 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOUIC_SEARCH_PATHS "${CMAKE_SOURCE_DIR}/uis")
+
+file(GLOB_RECURSE HEADERS "headers/*.hpp")
+file(GLOB_RECURSE SOURCES "scrs/*.cpp")
+file(GLOB_RECURSE UIS "uis/*.ui")
+file(GLOB_RECURSE RESOURCES "resources/*.qrc")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
@@ -15,23 +21,25 @@ find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 find_package(Qt6 REQUIRED COMPONENTS Concurrent)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.hpp
-        mainwindow.ui
+        ${HEADERS}
+        ${SOURCES}
+        ${UIS}
+        ${RESOURCES}
+        icon.rc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MushcFlow
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        logs.hpp logs.cpp
-        first_open_config.hpp first_open_config.cpp first_open_config.ui
-        downloader.hpp downloader.cpp downloader.ui song_handler.cpp
-        song_handler.hpp
-        playlist.hpp playlist.cpp playlist.ui
-        config_file_handler.hpp config_file_handler.cpp
-        Images.qrc
+
+        #logs.hpp logs.cpp
+        #first_open_config.hpp first_open_config.cpp first_open_config.ui
+        #downloader.hpp downloader.cpp downloader.ui song_handler.cpp
+        #song_handler.hpp
+        #playlist.hpp playlist.cpp playlist.ui
+        #config_file_handler.hpp config_file_handler.cpp
+        #Images.qrc
     )
 
 else()

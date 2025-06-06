@@ -1,5 +1,5 @@
-#include "playlist.hpp"
-#include "ui_playlist.h"
+#include "../headers/playlist.hpp"
+#include "uis/ui_playlist.h"
 
 Playlist::Playlist(QWidget *parent) :
 	QDialog(parent),

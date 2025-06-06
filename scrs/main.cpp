@@ -1,4 +1,4 @@
-#include "mainwindow.hpp"
+#include "../headers/mainwindow.hpp"
 
 #include <QApplication>
 
@@ -11,10 +11,10 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     w.centralize_window( a );
-    w.setWindowIcon( QIcon( ":/logo/MushcFlowLogo.png" ) );
+    w.setWindowIcon( QIcon( "MushcFlowLogo.png" ) );
 
     QSplashScreen *splash_screen = new QSplashScreen;
-    splash_screen->setPixmap( QPixmap( ":/logo/MushcFlowLogo.png" ) );
+    splash_screen->setPixmap( QPixmap( "MushcFlowLogo.png" ) );
     splash_screen->show();
 
     QTimer::singleShot( 2000, splash_screen, &QSplashScreen::close );

@@ -1,5 +1,5 @@
-#include "first_open_config.hpp"
-#include "ui_first_open_config.h"
+#include "../headers/first_open_config.hpp"
+#include "uis/ui_first_open_config.h"
 
 First_Open_Config::First_Open_Config(QWidget *parent) :
     QDialog(parent),

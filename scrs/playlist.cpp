@@ -12,7 +12,7 @@ Playlist::Playlist(QWidget *parent) :
 
 	m_layout = new QVBoxLayout( m_container );
 
-	read_config_file_and_make_class_configs();
+	make_class_configs();
 	refresh_songs_list();
 	config_watcher_to_songs_dir();
 }
@@ -22,7 +22,7 @@ Playlist::~Playlist()
 	delete ui;
 }
 
-void Playlist::read_config_file_and_make_class_configs()
+void Playlist::make_class_configs()
 {
 	auto result = Config_file_handler::get_Instance().get_values( {"songs_dir", "use_thumbnail"} );
 	if (!result.has_value())
@@ -36,6 +36,9 @@ void Playlist::read_config_file_and_make_class_configs()
 
 	m_songs_dir_path = result.value().value("songs_dir");
 	ui->volume_label->setText( "Volume: " + QString::number( 50 ) );
+
+	m_show_thumbnail = Config_file_handler::get_Instance().get_value( "use_thumbnail" ).toInt();
+	ui->thumbnail_check->setChecked( m_show_thumbnail );
 }
 
 void Playlist::config_watcher_to_songs_dir()

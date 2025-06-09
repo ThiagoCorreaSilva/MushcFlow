@@ -24,7 +24,7 @@ Playlist::~Playlist()
 
 void Playlist::read_config_file_and_make_class_configs()
 {
-	auto result = Config_file_handler::get_values( {"songs_dir", "use_thumbnail"} );
+	auto result = Config_file_handler::get_Instance().get_values( {"songs_dir", "use_thumbnail"} );
 	if (!result.has_value())
 	{
 		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
@@ -184,7 +184,10 @@ void Playlist::on_play_pause_button_clicked()
 
 void Playlist::on_thumbnail_check_stateChanged(int state)
 {
-	m_show_thumbnail = state;
+	m_show_thumbnail = ( state == 0) ? 0 : 1;
+
+	Config_file_handler::get_Instance().update_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
+
 	refresh_songs_list();
 }
 

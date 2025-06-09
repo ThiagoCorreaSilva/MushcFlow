@@ -18,7 +18,7 @@ Downloader::~Downloader()
 
 void Downloader::read_config_file()
 {
-	auto result = Config_file_handler::get_values( {"songs_dir"} );
+	auto result = Config_file_handler::get_Instance().get_values( {"songs_dir"} );
 	if (!result.has_value())
 	{
 		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";

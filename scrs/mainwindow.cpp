@@ -1,6 +1,8 @@
 #include "../headers/mainwindow.hpp"
 #include "uis/ui_mainwindow.h"
 
+#include "../headers/config_file_handler.hpp"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

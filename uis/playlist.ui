@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="player_tab">
     <attribute name="title">
@@ -637,6 +637,19 @@
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>previous_button</tabstop>
+  <tabstop>play_pause_button</tabstop>
+  <tabstop>next_button</tabstop>
+  <tabstop>random_track_check</tabstop>
+  <tabstop>loop_check</tabstop>
+  <tabstop>speed_combo</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>position_slider</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>thumbnail_check</tabstop>
+  <tabstop>volume_slider</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

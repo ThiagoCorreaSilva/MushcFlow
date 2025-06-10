@@ -41,8 +41,6 @@ class First_Open_Config : public QDialog
         QString m_songs_dir_path;
         QString m_app_language;
 
-        Logs log;
-
         void create_config_file();
         void create_app_directories();
 };

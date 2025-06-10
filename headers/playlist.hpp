@@ -17,6 +17,7 @@
 #include <optional>
 
 #include "config_file_handler.hpp"
+#include "song_folder_manager.hpp"
 #include "song_handler.hpp"
 #include "logs.hpp"
 
@@ -75,7 +76,5 @@ class Playlist : public QDialog
 
 		QString m_songs_dir_path;
 		bool m_show_thumbnail = false;
-
-		Logs log;
 };
 

@@ -19,8 +19,6 @@ class Config_file_handler
 		Config_file_handler();
 		~Config_file_handler() = default;
 
-		Logs log;
-
 		const QString m_config_file_name = "configs.json";
 		QFile m_config_file;
 

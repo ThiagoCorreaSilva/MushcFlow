@@ -31,14 +31,14 @@ void First_Open_Config::on_confirm_button_clicked()
 {
     if (ui->folder_label->text().isEmpty())
     {
-        QMessageBox::warning( this, tr("Empty folder!"), tr("Please select a folder!") );
+        QMessageBox::warning( this, tr( "Empty folder!" ), tr( "Please select a folder!" ) );
         return;
     }
 
     m_app_dir_path = ui->folder_label->text() + "/" + m_app_dir_name;
     m_songs_dir_path = m_app_dir_path + "/" + m_songs_dir_name;
 
-    int result = QMessageBox::question( this, tr("Confirm"), tr("You want to use: \"") + ui->folder_label->text() + tr("\" for MushcFlow folder?"),
+    int result = QMessageBox::question( this, tr( "Confirm" ), tr( "You want to use: \"" ) + ui->folder_label->text() + tr( "\" for MushcFlow folder?" ),
                   QMessageBox::Yes | QMessageBox::No );
 
     if (result == QMessageBox::Yes)

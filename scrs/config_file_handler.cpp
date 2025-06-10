@@ -12,7 +12,7 @@ void Config_file_handler::write_values( const QMap< QString, QString > &values_t
 		QString error_1 = "ERROR IN OPENING CONFIG_FILE";
 		QString error_2 = "PLEASE, TRY AGAIN!";
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 		m_config_file.remove();
 
 		return;
@@ -39,7 +39,7 @@ void Config_file_handler::update_value( const QString &name, const QString &valu
 		QString error_1 = "ERROR IN OPENING CONFIG_FILE";
 		QString error_2 = "PLEASE, TRY AGAIN!";
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 		m_config_file.remove();
 
 		return;
@@ -55,7 +55,7 @@ void Config_file_handler::update_value( const QString &name, const QString &valu
 		QString error_1 = "ERROR IN READING JSON DATA FROM CONFIG FILE!";
 		QString error_2 = error.errorString();
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 
 		return;
 	}
@@ -78,7 +78,7 @@ std::optional<QMap< QString, QString >> Config_file_handler::get_values( const Q
 		QString error_1 = "ERROR IN OPENING CONFIG_FILE";
 		QString error_2 = "PLEASE, TRY AGAIN!";
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 		m_config_file.remove();
 
 		return {};
@@ -95,7 +95,7 @@ std::optional<QMap< QString, QString >> Config_file_handler::get_values( const Q
 		QString error_1 = "ERROR IN READING JSON DATA! (CONFIG_FILE)";
 		QString error_2 = "PLEASE OPEN THE PROGRAM AGAIN OR DELETE CONFIG_FILE!";
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 		return {};
 	}
 
@@ -120,7 +120,7 @@ QString Config_file_handler::get_value( const QString &value_to_read )
 {
 	if (!m_config_file.open( QFile::ReadOnly ))
 	{
-		log.create_log( {"ERROR IN READING CONFIG FILE!"} );
+		Logs::get_Instance().create_log( {"ERROR IN READING CONFIG FILE!"} );
 
 		return {};
 	}
@@ -136,7 +136,7 @@ QString Config_file_handler::get_value( const QString &value_to_read )
 		QString error_1 = "ERROR IN READING JSON DATA FROM CONFIG FILE!";
 		QString error_2 = error.errorString();
 
-		log.create_log( {error_1, error_2} );
+		Logs::get_Instance().create_log( {error_1, error_2} );
 
 		return {};
 	}

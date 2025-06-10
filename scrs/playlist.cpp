@@ -14,7 +14,7 @@ Playlist::Playlist(QWidget *parent) :
 
 	make_class_configs();
 	refresh_songs_list();
-	config_watcher_to_songs_dir();
+	//config_watcher_to_songs_dir();
 }
 
 Playlist::~Playlist()
@@ -30,7 +30,7 @@ void Playlist::make_class_configs()
 		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
 		QString error_2 = "PLEASE, TRY AGAIN OR DELETE CONFIG_FILE";
 
-		log.create_log( {error_1, error_2}, this );
+		Logs::get_Instance().create_log( {error_1, error_2}, this );
 		exit( EXIT_FAILURE );
 	}
 
@@ -60,7 +60,7 @@ void Playlist::refresh_songs_list()
 		QString error_1 = "SONGS FOLDER DONT EXISTS!";
 		QString error_2 = "TRY TO REOPEN MUSHCFLOW! IF NOT WORK, DELETE CONFIG_FILE!";
 
-		log.create_log( {error_1, error_2}, this );
+		Logs::get_Instance().create_log( {error_1, error_2}, this );
 
 		return;
 	}
@@ -185,6 +185,7 @@ void Playlist::delete_song( QFileInfo &song_info )
 	QFile::remove( song_thumbnail );
 	QFile::remove( song_info.absoluteFilePath() );
 
+	Song_folder_manager::get_Instance().refresh_list();
 	refresh_songs_list();
 }
 
@@ -199,6 +200,7 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 
 	Config_file_handler::get_Instance().update_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
 
+	Song_folder_manager::get_Instance().refresh_list();
 	refresh_songs_list();
 }
 

@@ -5,7 +5,7 @@ void Logs::create_log( const QStringList &log_messages, QWidget *parent, const E
     create_directory();
 
     QString current_time = QDateTime::currentDateTime().toString();
-    current_time.replace( QRegularExpression(":"), "-" );
+    current_time.replace( QRegularExpression( ":" ), "-" );
 
     QString file_name = "Logs/log - " + current_time + ".txt";
 

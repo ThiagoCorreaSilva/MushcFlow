@@ -24,7 +24,7 @@ void Downloader::read_config_file()
 		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
 		QString error_2 = "PLEASE, TRY AGAIN!";
 
-		log.create_log( {error_1, error_2}, this );
+		Logs::get_Instance().create_log( {error_1, error_2}, this );
 	}
 
 	m_songs_dir_path = result.value().value("songs_dir");

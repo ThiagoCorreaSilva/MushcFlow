@@ -53,4 +53,6 @@ class Song_handler
 		void change_random_track_state( const bool &state );
 		void set_song_speed( const QString &value );
 		void change_song_position( const quint64 &position );
+
+		QTime get_song_time( const int &value );
 };

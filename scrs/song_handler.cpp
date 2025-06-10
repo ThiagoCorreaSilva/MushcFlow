@@ -134,6 +134,13 @@ void Song_handler::previous_song()
 		return;
 	}
 
+	int current_pos = get_song_time( m_player->position() ).minute();
+	if (current_pos > 0 && current_pos <= 10)
+	{
+		m_player->setPosition( 0 );
+		return;
+	}
+
 	if ((m_current_song_index - 1) < 0)
 	{
 		m_current_song_index = m_max_song_index - 1;
@@ -182,26 +189,26 @@ void Song_handler::set_song_speed( const QString &speed )
 
 void Song_handler::update_position_slider( const quint64 &position )
 {
-	int seconds = ( position / 1000 ) % 60;
-	int minutes = ( position / 60000 ) % 60;
-
-	QTime time( minutes, seconds );
-	m_position_label->setText( time.toString() );
+	m_position_label->setText( get_song_time( position ).toString() );
 	m_position_slider->setValue( position );
 }
 
 void Song_handler::duration_changed( const quint64 &duration )
 {
-	int seconds = ( duration / 1000 ) % 60;
-	int minutes = ( duration / 60000 ) % 60;
-
-	QTime time( minutes, seconds );
-	m_duration_label->setText(time.toString());
+	m_duration_label->setText( get_song_time( duration ).toString() );
 	m_position_slider->setMaximum( duration );
 }
 
 void Song_handler::change_song_position( const quint64 &position )
 {
-
 	m_player->setPosition( position );
+}
+
+QTime Song_handler::get_song_time( const int &value )
+{
+	int seconds = ( value / 1000 ) % 60;
+	int minutes = ( value / 60000 ) % 60;
+
+	QTime time( minutes, seconds );
+	return time;
 }

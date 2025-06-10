@@ -70,10 +70,9 @@ void Playlist::refresh_songs_list()
 
 	QFileInfoList files_info = songs_dir.entryInfoList();
 
+	m_songs_button.clear();
 	m_song_handler.reset_playlist();
 	m_song_handler.set_playlist( files_info );
-
-	int total_files = 0;
 
 	for ( auto &file : std::as_const(files_info) )
 	{
@@ -87,6 +86,7 @@ void Playlist::refresh_songs_list()
 		button->setFixedSize( 460, 60 );
 		button->setFont( QFont( "Arial" ));
 		button->setStyleSheet( "font: bold; text-decoration: underline;" );
+		m_songs_button.push_back( button );
 
 		if (m_show_thumbnail)
 		{
@@ -96,10 +96,22 @@ void Playlist::refresh_songs_list()
 		connect(button, &QPushButton::clicked, this, [ this, file ]{ button_action( const_cast<QFileInfo&>(file)); } );
 
 		m_layout->addWidget( button );
-
-		total_files++;
-		ui->songs_count_label->setText( QString::number( total_files ) );
 	}
+
+	ui->songs_count_label->setText( QString::number( m_songs_button.size() ) );
+}
+
+void Playlist::add_image_in_button()
+{
+	if (!m_show_thumbnail)
+	{
+		return;
+	}
+
+}
+void Playlist::remove_image_from_button()
+{
+
 }
 
 void Playlist::set_pix_map( QPushButton &button, const QString &path )
@@ -111,7 +123,7 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 	}
 
 	QPixmap pixmap( path + ".jpg" );
-    pixmap = pixmap.scaled( button.size(), Qt::KeepAspectRatio );
+	pixmap = pixmap.scaled( button.size(), Qt::KeepAspectRatio );
 
 	QPalette palette;
 	palette.setBrush( button.backgroundRole(), QBrush( pixmap ) );
@@ -173,7 +185,7 @@ void Playlist::delete_song( QFileInfo &song_info )
 	m_song_handler.stop_song();
 
 	QString song_thumbnail = song_info.absoluteFilePath().remove(".mp3") + ".jpg";
-	qDebug() << song_info.absoluteFilePath();
+
 	QFile::remove( song_thumbnail );
 	QFile::remove( song_info.absoluteFilePath() );
 

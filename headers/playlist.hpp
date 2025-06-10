@@ -6,6 +6,7 @@
 #include <QAbstractButton>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QVariantMap>
 #include <QMessageBox>
 #include <QFileInfo>
 #include <QPalette>
@@ -62,6 +63,8 @@ class Playlist : public QDialog
 		void button_action( QFileInfo &song_info );
 		void play_song( const QFileInfo &song_info );
 		void delete_song( QFileInfo &song_info );
+		void remove_image_from_button();
+		void add_image_in_button();
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;

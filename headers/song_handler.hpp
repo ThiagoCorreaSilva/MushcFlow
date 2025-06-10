@@ -14,6 +14,9 @@
 class Song_handler
 {
 	private:
+		Song_handler();
+		~Song_handler() = default;
+
 		QMediaPlayer *m_player;
 		QAudioOutput *m_output;
 		QFileInfoList m_playlist_songs;
@@ -38,7 +41,13 @@ class Song_handler
 		void duration_changed( const quint64 &duration );
 
 	public:
-		Song_handler();
+
+		static Song_handler &get_Instance()
+		{
+			static Song_handler instance;
+			return instance;
+		}
+
 		void set_playlist( const QFileInfoList &playlist_path );
 		void set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label );
 		void reset_playlist();

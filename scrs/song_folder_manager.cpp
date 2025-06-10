@@ -3,12 +3,22 @@
 Song_folder_manager::Song_folder_manager()
 {
 	m_song_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
-	qDebug() << m_song_dir_path;
+}
+
+void Song_folder_manager::set_layout( QVBoxLayout *layout )
+{
+	m_layout = layout;
 }
 
 QVector< QPushButton* > &Song_folder_manager::refresh_list()
 {
-	m_songs_buttons.clear();
+	if (m_layout == nullptr)
+	{
+		qDebug() << "NULL LAYOUT!";
+
+		m_songs_buttons.clear();
+		return m_songs_buttons;
+	}
 
 	QDir song_dir( m_song_dir_path );
 	if ( !song_dir.exists() )
@@ -17,7 +27,11 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 		return m_songs_buttons;
 	}
 
+	m_songs_buttons.clear();
 	QFileInfoList files = song_dir.entryInfoList( {"*.mp3"} );
+
+	Song_handler::get_Instance().reset_playlist();
+	Song_handler::get_Instance().set_playlist( files );
 
 	for ( auto &file : std::as_const( files ) )
 	{
@@ -29,15 +43,16 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 
 void Song_folder_manager::create_button( const QString &name )
 {
-	QPushButton button;
-	button.setText( name );
-	button.setFixedSize( 460, 60 );
-	button.setFont( QFont( "Arial" ));
-	button.setStyleSheet( "font: bold; text-decoration: underline;" );
+	QPushButton *button = new QPushButton( name );
+	button->setFixedSize( 460, 60 );
+	button->setFont( QFont( "Arial" ));
+	button->setStyleSheet( "font: bold; text-decoration: underline;" );
 
-	add_pix_map( button );
+	add_pix_map( *button );
+	QPushButton::connect( button, &QPushButton::clicked, [ this, button ]{ button_pressed( button->text() ); } );
 
-	m_songs_buttons.push_back( &button );
+	m_songs_buttons.push_back( button );
+	m_layout->addWidget( button );
 }
 
 void Song_folder_manager::add_pix_map( QPushButton &button )
@@ -52,12 +67,10 @@ void Song_folder_manager::add_pix_map( QPushButton &button )
 
 	if (QFileInfo::exists( image_path + ".jpg" ))
 	{
-		qDebug() << "JPG FOUNDED!";
 		image_path += ".jpg";
 	}
 	else if (QFileInfo::exists( image_path + ".png" ))
 	{
-		qDebug() << "PNG FOUNDED!";
 		image_path += ".png";
 	}
 
@@ -76,4 +89,9 @@ void Song_folder_manager::add_pix_map( QPushButton &button )
 	button.setFlat( true );
 	button.setAutoFillBackground( true );
 	button.setPalette( palette );
+}
+
+void Song_folder_manager::button_pressed( const QString &name )
+{
+	qDebug() << "CLICKED: " << name;
 }

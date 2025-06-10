@@ -5,10 +5,12 @@
 #include <QFile>
 #include <QDir>
 
+#include <QVBoxLayout>
 #include <QPushButton>
 #include <QVector>
 
 #include "config_file_handler.hpp"
+#include "song_handler.hpp";
 #include "logs.hpp"
 
 class Song_folder_manager
@@ -20,8 +22,11 @@ class Song_folder_manager
 		QString m_song_dir_path;
 		QVector < QPushButton* > m_songs_buttons;
 
+		QVBoxLayout *m_layout;
+
 		void add_pix_map( QPushButton &button );
 		void create_button( const QString &name );
+		void button_pressed( const QString &name );
 
 	public:
 		static Song_folder_manager &get_Instance()
@@ -30,5 +35,6 @@ class Song_folder_manager
 			return instance;
 		}
 
+		void set_layout( QVBoxLayout *layout );
 		QVector< QPushButton* > &refresh_list();
 };

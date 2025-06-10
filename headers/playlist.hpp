@@ -71,7 +71,7 @@ class Playlist : public QDialog
 		QWidget *m_container;
 		QVBoxLayout *m_layout;
 		QFileSystemWatcher m_watcher;
-		Song_handler m_song_handler;
+		//Song_handler m_song_handler;
 		QVector < QPushButton *> m_songs_button;
 
 		QString m_songs_dir_path;

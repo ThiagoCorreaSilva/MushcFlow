@@ -11,6 +11,7 @@ Playlist::Playlist(QWidget *parent) :
 	ui->scrollArea->setWidget( m_container );
 
 	m_layout = new QVBoxLayout( m_container );
+	Song_folder_manager::get_Instance().set_layout( m_layout );
 
 	make_class_configs();
 	refresh_songs_list();
@@ -68,6 +69,7 @@ void Playlist::refresh_songs_list()
 	// Delete all childrens in m_container (who have a QVBoxLayout)
 	qDeleteAll( m_container->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly) );
 
+	/*
 	QFileInfoList files_info = songs_dir.entryInfoList();
 
 	m_songs_button.clear();
@@ -97,8 +99,9 @@ void Playlist::refresh_songs_list()
 
 		m_layout->addWidget( button );
 	}
-
-	ui->songs_count_label->setText( QString::number( m_songs_button.size() ) );
+*/
+	int songs_button_quantity = Song_folder_manager::get_Instance().refresh_list().size();
+	ui->songs_count_label->setText( QString::number( songs_button_quantity ) );
 }
 
 void Playlist::add_image_in_button()
@@ -167,18 +170,18 @@ void Playlist::play_song( const QFileInfo &song_info )
 {
 	ui->tabWidget->setCurrentIndex( 0 );
 
-	m_song_handler.set_ui_elements( *ui->song_label, *ui->position_slider, *ui->duration_label, *ui->position_label );
-	m_song_handler.set_song_speed( ui->speed_combo->currentText() );
-	m_song_handler.change_replay( ui->loop_check->isChecked() );
-	m_song_handler.change_random_track_state( ui->random_track_check->isChecked() );
-	m_song_handler.play_song( song_info );
+	Song_handler::get_Instance().set_ui_elements( *ui->song_label, *ui->position_slider, *ui->duration_label, *ui->position_label );
+	Song_handler::get_Instance().set_song_speed( ui->speed_combo->currentText() );
+	Song_handler::get_Instance().change_replay( ui->loop_check->isChecked() );
+	Song_handler::get_Instance().change_random_track_state( ui->random_track_check->isChecked() );
+	Song_handler::get_Instance().play_song( song_info );
 }
 
 void Playlist::delete_song( QFileInfo &song_info )
 {
 	qDebug() << "DELETED";
 	ui->tabWidget->setCurrentIndex( 1 );
-	m_song_handler.stop_song();
+	Song_handler::get_Instance().stop_song();
 
 	QString song_thumbnail = song_info.absoluteFilePath().remove(".mp3") + ".jpg";
 
@@ -191,7 +194,7 @@ void Playlist::delete_song( QFileInfo &song_info )
 
 void Playlist::on_play_pause_button_clicked()
 {
-	m_song_handler.pause_unpause_song();
+	Song_handler::get_Instance().pause_unpause_song();
 }
 
 void Playlist::on_thumbnail_check_stateChanged(int state)
@@ -207,35 +210,35 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 void Playlist::on_volume_slider_valueChanged(int value)
 {
 	ui->volume_label->setText( "Volume: " + QString::number( value ) );
-	m_song_handler.change_volume( value );
+	Song_handler::get_Instance().change_volume( value );
 }
 
 void Playlist::on_previous_button_clicked()
 {
-	m_song_handler.previous_song();
+	Song_handler::get_Instance().previous_song();
 }
 
 void Playlist::on_next_button_clicked()
 {
-	m_song_handler.next_song();
+	Song_handler::get_Instance().next_song();
 }
 
 void Playlist::on_speed_combo_currentTextChanged(const QString &speed)
 {
-	m_song_handler.set_song_speed( speed );
+	Song_handler::get_Instance().set_song_speed( speed );
 }
 
 void Playlist::on_random_track_check_toggled(bool checked)
 {
-	m_song_handler.change_random_track_state( checked );
+	Song_handler::get_Instance().change_random_track_state( checked );
 }
 
 void Playlist::on_loop_check_toggled(bool checked)
 {
-	m_song_handler.change_replay( checked );
+	Song_handler::get_Instance().change_replay( checked );
 }
 
 void Playlist::on_position_slider_sliderMoved(int position)
 {
-	m_song_handler.change_song_position( position );
+	Song_handler::get_Instance().change_song_position( position );
 }

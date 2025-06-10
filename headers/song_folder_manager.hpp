@@ -5,6 +5,9 @@
 #include <QFile>
 #include <QDir>
 
+#include <QMessageBox>
+#include <QTranslator>
+
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QVector>

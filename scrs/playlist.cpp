@@ -13,6 +13,11 @@ Playlist::Playlist(QWidget *parent) :
 	m_layout = new QVBoxLayout( m_container );
 	Song_folder_manager::get_Instance().set_layout( m_layout );
 
+	Song_handler::get_Instance().set_ui_elements( *ui->song_label, *ui->position_slider, *ui->duration_label, *ui->position_label );
+	Song_handler::get_Instance().set_song_speed( ui->speed_combo->currentText() );
+	Song_handler::get_Instance().change_replay( ui->loop_check->isChecked() );
+	Song_handler::get_Instance().change_random_track_state( ui->random_track_check->isChecked() );
+
 	make_class_configs();
 	refresh_songs_list();
 	//config_watcher_to_songs_dir();

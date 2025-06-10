@@ -93,5 +93,34 @@ void Song_folder_manager::add_pix_map( QPushButton &button )
 
 void Song_folder_manager::button_pressed( const QString &name )
 {
-	qDebug() << "CLICKED: " << name;
+	QString song_name = name;
+	QMessageBox question_box;
+
+	question_box.setIcon( QMessageBox::Question );
+	question_box.setWindowTitle( QTranslator::tr( "Question!" ) );
+	question_box.setText( QTranslator::tr("What you want to make with: ") + '\n' + song_name );
+
+	question_box.addButton( QTranslator::tr( "Play" ), QMessageBox::AcceptRole );
+	question_box.addButton( QTranslator::tr( "Nothing" ), QMessageBox::RejectRole );
+	question_box.addButton( QTranslator::tr( "Delete" ), QMessageBox::DestructiveRole );
+
+	int result = question_box.exec();
+
+	static const int ACCEPT_ROLE = 2;
+	static const int DELETE_ROLE = 4;
+
+	QFileInfo file( m_song_dir_path + '/' + name + ".mp3"  );
+
+	switch ( result )
+	{
+		case ACCEPT_ROLE:
+			//play_song( song_info );
+			Song_handler::get_Instance().play_song( file );
+			qDebug() << "passed";
+			break;
+
+		case DELETE_ROLE:
+			//delete_song( song_info );
+			break;
+	}
 }

@@ -136,35 +136,31 @@ void Playlist::set_pix_map( QPushButton &button, const QString &path )
 void Playlist::button_action( QFileInfo &song_info )
 {
 	QString song_name = song_info.fileName().remove(".mp3");
-
 	QMessageBox question_box;
 
 	question_box.setIcon( QMessageBox::Question );
-	question_box.setWindowTitle( tr("Question!") );
+	question_box.setWindowTitle( tr( "Question!" ) );
 	question_box.setText( tr("What you want to make with: ") + '\n' + song_name );
-	QAbstractButton *yes_button = question_box.addButton( tr("Play"), QMessageBox::AcceptRole );
-	QAbstractButton *nothing_button = question_box.addButton( tr("Nothing"), QMessageBox::NoRole);
-	QAbstractButton *delete_button = question_box.addButton( tr("Delete"), QMessageBox::DestructiveRole);
 
-	question_box.exec();
+	question_box.addButton( tr( "Play" ), QMessageBox::AcceptRole );
+	question_box.addButton( tr( "Nothing" ), QMessageBox::RejectRole );
+	question_box.addButton( tr( "Delete" ), QMessageBox::DestructiveRole );
 
-	if (question_box.clickedButton() == yes_button)
+	int result = question_box.exec();
+
+	static const int ACCEPT_ROLE = 2;
+	static const int DELETE_ROLE = 4;
+
+	switch ( result )
 	{
-		play_song( song_info );
-		return;
-	}
+		case ACCEPT_ROLE:
+			play_song( song_info );
+			break;
 
-	if (question_box.clickedButton() == nothing_button)
-	{
-		return;
+		case DELETE_ROLE:
+			delete_song( song_info );
+			break;
 	}
-
-	if (question_box.clickedButton() == delete_button)
-	{
-		delete_song( song_info );
-		return;
-	}
-
 }
 
 void Playlist::play_song( const QFileInfo &song_info )

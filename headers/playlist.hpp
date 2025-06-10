@@ -32,6 +32,8 @@ class Playlist : public QDialog
 		explicit Playlist(QWidget *parent = nullptr);
 		~Playlist();
 
+		void refresh_songs_list();
+
 	private slots:
 		void on_play_pause_button_clicked();
 
@@ -58,7 +60,6 @@ class Playlist : public QDialog
 		void set_thumbnail_show_state();
 		void config_watcher_to_songs_dir();
 		void songs_dir_watcher_event();
-		void refresh_songs_list();
 		void set_pix_map( QPushButton &button, const QString &path );
 		void button_action( QFileInfo &song_info );
 		void play_song( const QFileInfo &song_info );

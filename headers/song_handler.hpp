@@ -11,6 +11,7 @@
 #include <QDir>
 
 #include <algorithm>
+#include <random>
 
 class Song_handler
 {
@@ -36,7 +37,7 @@ class Song_handler
 		QSlider *m_position_slider;
 		QList <int> m_random_index;
 
-		void randomize_playlist_index();
+		void randomize_playlist();
 		int get_random_index();
 
 		void update_position_slider( const quint64 &position );

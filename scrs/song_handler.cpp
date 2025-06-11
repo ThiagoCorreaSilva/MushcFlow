@@ -20,7 +20,8 @@ void Song_handler::set_playlist( const QFileInfoList &playlist )
 	m_playlist_songs = playlist;
 	m_max_song_index = m_playlist_songs.size();
 
-	randomize_playlist_index();
+	std::random_shuffle( m_playlist_songs.begin(), m_playlist_songs.end() );
+	//randomize_playlist();
 }
 
 void Song_handler::reset_playlist()
@@ -28,7 +29,7 @@ void Song_handler::reset_playlist()
 	m_playlist_songs.clear();
 }
 
-void Song_handler::randomize_playlist_index()
+void Song_handler::randomize_playlist()
 {
 	m_random_index.clear();
 
@@ -37,7 +38,9 @@ void Song_handler::randomize_playlist_index()
 		m_random_index.append( i );
 	}
 
-	std::random_shuffle( m_random_index.begin(), m_random_index.end());
+	std::random_device rd;
+	std::mt19937 generator( rd() );
+	std::shuffle( m_random_index.begin(), m_random_index.end(), generator );
 }
 
 void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label, QTabWidget &tab_widget )
@@ -88,6 +91,8 @@ void Song_handler::next_song()
 	}
 
 	m_player->play();
+
+	/*
 	if (m_random_track)
 	{
 		m_current_song_index = get_random_index();
@@ -95,6 +100,7 @@ void Song_handler::next_song()
 
 		return;
 	}
+	*/
 
 	if ((m_current_song_index + 1) == m_max_song_index)
 	{
@@ -110,8 +116,7 @@ void Song_handler::next_song()
 
 int Song_handler::get_random_index()
 {
-	static int index = -1;
-	++index;
+	static int index = 0;
 
 	if (index == m_max_song_index)
 	{
@@ -140,7 +145,7 @@ void Song_handler::previous_song()
 	if ((m_current_song_index - 1) < 0)
 	{
 		m_current_song_index = m_max_song_index - 1;
-		play_song( m_playlist_songs.last() );
+		play_song( m_playlist_songs.at( m_current_song_index ) );
 
 		return;
 	}

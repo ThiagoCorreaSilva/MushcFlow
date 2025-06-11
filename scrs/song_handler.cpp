@@ -17,17 +17,9 @@ void Song_handler::set_playlist( const QFileInfoList &playlist )
 {
 	reset_playlist();
 
-	for ( const QFileInfo &file : playlist )
-	{
-		if (!file.fileName().contains(".mp3"))
-		{
-			continue;
-		}
-
-		m_playlist_songs.push_back( file );
-	}
-
+	m_playlist_songs = playlist;
 	m_max_song_index = m_playlist_songs.size();
+
 	randomize_playlist_index();
 }
 
@@ -36,12 +28,11 @@ void Song_handler::reset_playlist()
 	m_playlist_songs.clear();
 }
 
-
 void Song_handler::randomize_playlist_index()
 {
 	m_random_index.clear();
 
-	for ( int i = 0; i < m_playlist_songs.size(); i++ )
+	for ( size_t i = 0; i < m_playlist_songs.size(); i++ )
 	{
 		m_random_index.append( i );
 	}
@@ -76,7 +67,7 @@ void Song_handler::play_song( const QFileInfo &song_file )
 
 void Song_handler::stop_song()
 {
-	m_player->setSource( QUrl("") );
+	m_player->setSource( QUrl( "" ) );
 	m_player->stop();
 
 	m_song_label->setText( "" );
@@ -97,6 +88,7 @@ void Song_handler::next_song()
 		return;
 	}
 
+	m_player->play();
 	if (m_random_track)
 	{
 		m_current_song_index = get_random_index();
@@ -132,10 +124,12 @@ int Song_handler::get_random_index()
 
 void Song_handler::previous_song()
 {
-	if (m_playlist_songs.empty() || !m_player->isPlaying())
+	if (m_playlist_songs.empty() || m_player->source().isEmpty())
 	{
 		return;
 	}
+
+	m_player->play();
 
 	int current_pos = get_song_time( m_player->position() ).minute();
 	if (current_pos > 0 && current_pos <= 10)
@@ -181,12 +175,9 @@ void Song_handler::change_random_track_state( const bool &state )
 	m_random_track = state;
 }
 
-void Song_handler::set_song_speed( const QString &speed )
+void Song_handler::set_song_speed( QString speed )
 {
-	QString value = speed;
-	value.remove("x");
-
-	m_song_speed = value.toFloat();
+	m_song_speed = speed.remove( 'x' ).toFloat();
 	m_player->setPlaybackRate( m_song_speed );
 }
 

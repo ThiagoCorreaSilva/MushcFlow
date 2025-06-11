@@ -3,7 +3,6 @@
 Song_folder_manager::Song_folder_manager()
 {
 	m_song_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
-	refresh_list();
 }
 
 void Song_folder_manager::set_layout( QVBoxLayout *layout )

@@ -11,11 +11,13 @@ Playlist::Playlist(QWidget *parent) :
 	ui->scrollArea->setWidget( m_container );
 
 	m_layout = new QVBoxLayout( m_container );
+
+	make_class_configs();
+
 	Song_folder_manager::get_Instance().set_layout( m_layout );
 	Song_folder_manager::get_Instance().set_container( m_container );
 	Song_folder_manager::get_Instance().set_label( ui->songs_count_label );
-
-	make_class_configs();
+	Song_folder_manager::get_Instance().refresh_list();
 }
 
 Playlist::~Playlist()

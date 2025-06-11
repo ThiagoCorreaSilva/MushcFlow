@@ -62,7 +62,7 @@ void Logs::create_directory()
 
 void Logs::show_message_box( QWidget *parent, const QString &log_name )
 {
-    int result = QMessageBox::question( parent, "Error!", QTranslator::tr("\t Ocurred a error! \n You want to see the log about it?") );
+    int result = QMessageBox::question( parent, "Error!", QTranslator::tr( "\t Ocurred a error! \n You want to see the log about it?" ) );
     if (result == QMessageBox::Yes)
     {
         QDesktopServices::openUrl( QUrl::fromLocalFile( log_name ) );

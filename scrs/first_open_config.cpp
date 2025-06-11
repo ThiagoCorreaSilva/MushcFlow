@@ -58,9 +58,10 @@ void First_Open_Config::on_confirm_button_clicked()
 void First_Open_Config::create_config_file()
 {
     QMap < QString, QString > values_to_write;
-    values_to_write["app_dir"] = m_app_dir_path;
-    values_to_write["songs_dir"] = m_songs_dir_path;
-    values_to_write["use_thumbnail"] = "1";
+    values_to_write[ "app_dir" ] = m_app_dir_path;
+    values_to_write[ "songs_dir" ] = m_songs_dir_path;
+    values_to_write[ "use_thumbnail" ] = "1";
+    values_to_write[ "thumbnail_format" ] = "png";
 
     Config_file_handler::get_Instance().write_values( values_to_write );
 }

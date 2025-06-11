@@ -13,21 +13,15 @@ Downloader::Downloader(QWidget *parent) :
 
 Downloader::~Downloader()
 {
+	Config_file_handler::get_Instance().update_value( "thumbnail_format", ui->thumbnail_format->currentText() );
+
 	delete ui;
 }
 
 void Downloader::read_config_file()
 {
-	auto result = Config_file_handler::get_Instance().get_values( {"songs_dir"} );
-	if (!result.has_value())
-	{
-		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
-		QString error_2 = "PLEASE, TRY AGAIN!";
-
-		Logs::get_Instance().create_log( {error_1, error_2}, this );
-	}
-
-	m_songs_dir_path = result.value().value("songs_dir");
+	ui->thumbnail_format->setCurrentText( Config_file_handler::get_Instance().get_value( "thumbnail_format" ) );
+	m_songs_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
 }
 
 void Downloader::on_download_button_clicked()

@@ -23,7 +23,7 @@ void Config_file_handler::write_values( const QMap< QString, QString > &values_t
 
 	for ( const auto [key, value] : values_to_write.asKeyValueRange() )
 	{
-		object[key] = value;
+		object.insert( key, value );
 	}
 
 	document.setObject( object );
@@ -63,12 +63,28 @@ void Config_file_handler::update_value( const QString &name, const QString &valu
 	QJsonObject object = document.object();
 	QJsonValueRef value_ref = object.find( name ).value();
 
+	if (object.find( name ).value().isUndefined())
+	{
+		qDebug() << "CREATED IN CONFIG FILE: " << name;
+
+		object.insert( name, value );
+		document.setObject( object );
+
+		m_config_file.seek( 0 );
+		m_config_file.write( document.toJson() );
+		m_config_file.close();
+
+		return;
+	}
+
 	value_ref = value;
 	document.setObject( object );
 
 	m_config_file.seek( 0 );
 	m_config_file.write( document.toJson() );
 	m_config_file.close();
+
+	qDebug() << "OBJECT CHANGED: " << name << " NEW VALUE: " << value;
 }
 
 std::optional<QMap< QString, QString >> Config_file_handler::get_values( const QStringList &values_to_read )

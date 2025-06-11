@@ -12,12 +12,11 @@ Playlist::Playlist(QWidget *parent) :
 
 	m_layout = new QVBoxLayout( m_container );
 
-	make_class_configs();
-
 	Song_folder_manager::get_Instance().set_layout( m_layout );
 	Song_folder_manager::get_Instance().set_container( m_container );
 	Song_folder_manager::get_Instance().set_label( ui->songs_count_label );
-	Song_folder_manager::get_Instance().refresh_list();
+
+	make_class_configs();
 }
 
 Playlist::~Playlist()
@@ -27,21 +26,16 @@ Playlist::~Playlist()
 
 void Playlist::make_class_configs()
 {
-	auto result = Config_file_handler::get_Instance().get_values( {"songs_dir", "use_thumbnail"} );
-	if (!result.has_value())
-	{
-		QString error_1 = "ERROR IN GETTING VALUES FROM CONFIG_FILE!";
-		QString error_2 = "PLEASE, TRY AGAIN OR DELETE CONFIG_FILE";
-
-		Logs::get_Instance().create_log( {error_1, error_2}, this );
-		exit( EXIT_FAILURE );
-	}
-
-	m_songs_dir_path = result.value().value("songs_dir");
+	m_songs_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
 	ui->volume_label->setText( "Volume: " + QString::number( 50 ) );
 
 	m_show_thumbnail = Config_file_handler::get_Instance().get_value( "use_thumbnail" ).toInt();
 	ui->thumbnail_check->setChecked( m_show_thumbnail );
+
+	if (!m_show_thumbnail)
+	{
+		Song_folder_manager::get_Instance().refresh_list();
+	}
 
 	config_song_handler();
 }
@@ -64,7 +58,6 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 	m_show_thumbnail = ( state == 0) ? 0 : 1;
 
 	Config_file_handler::get_Instance().update_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
-
 	Song_folder_manager::get_Instance().refresh_list();
 }
 

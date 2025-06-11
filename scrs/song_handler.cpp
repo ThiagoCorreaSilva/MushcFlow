@@ -36,7 +36,6 @@ void Song_handler::randomize_playlist_index()
 	{
 		m_random_index.append( i );
 	}
-	qDebug() << "SIZE: " << m_random_index.size();
 
 	std::random_shuffle( m_random_index.begin(), m_random_index.end());
 }

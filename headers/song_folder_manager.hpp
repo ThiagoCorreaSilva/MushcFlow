@@ -27,6 +27,7 @@ class Song_folder_manager
 		~Song_folder_manager() = default;
 
 		QString m_song_dir_path;
+		QString m_thumbnail_dir_path;
 		QVector < QPushButton* > m_songs_buttons;
 
 		QWidget *m_container;

@@ -3,6 +3,7 @@
 Song_folder_manager::Song_folder_manager()
 {
 	m_song_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
+	m_thumbnail_dir_path = Config_file_handler::get_Instance().get_value( "thumbnails_dir" );
 }
 
 void Song_folder_manager::set_layout( QVBoxLayout *layout )
@@ -67,15 +68,16 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 void Song_folder_manager::move_thumbnails()
 {
 	QString thumbnails_path = Config_file_handler::get_Instance().get_value( "thumbnails_dir" );
+	QString songs_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
 
-	if (thumbnails_path.isEmpty())
+	QDir songs_dir( songs_path );
+	QFileInfoList thumbs = songs_dir.entryInfoList( {"*.png", "*.jpg"});
+
+	if (thumbs.isEmpty())
 	{
-		qDebug() << "EMPTY THUMBNAIL PATH!";
+		qDebug() << "NOT FOUNDED ANY THUMB IN THE SONGS DIR!";
 		return;
 	}
-
-	QDir thumbnails_dir( thumbnails_path );
-	QFileInfoList thumbs = thumbnails_dir.entryInfoList( {"*.png", "*.jpg"});
 
 	for ( auto &thumb : thumbs )
 	{
@@ -106,7 +108,7 @@ void Song_folder_manager::add_pix_map( QPushButton &button )
 		return;
 	}
 
-	QString image_path = m_song_dir_path + '/' + button.text();
+	QString image_path = m_thumbnail_dir_path + '/' + button.text();
 
 	if (QFileInfo::exists( image_path + ".jpg" ))
 	{
@@ -169,9 +171,10 @@ void Song_folder_manager::button_pressed( const QString &name )
 void Song_folder_manager::delete_song( const QFileInfo &file )
 {
 	Song_handler::get_Instance().stop_song();
+	QDir thumbnail_dir( m_thumbnail_dir_path );
 
-	QString song_thumbnail_jpg = file.absoluteFilePath().remove( ".mp3" ) + ".jpg";
-	QString song_thumbnail_png = file.absoluteFilePath().remove( ".mp3" ) + ".png";
+	QString song_thumbnail_jpg = thumbnail_dir.filePath( file.fileName().remove( ".mp3" ) + ".jpg" );
+	QString song_thumbnail_png = thumbnail_dir.filePath( file.fileName().remove( ".mp3" ) + ".png" );
 
 	QFile::remove( song_thumbnail_jpg );
 	QFile::remove( song_thumbnail_png );

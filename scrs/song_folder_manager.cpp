@@ -148,9 +148,11 @@ void Song_folder_manager::delete_song( const QFileInfo &file )
 {
 	Song_handler::get_Instance().stop_song();
 
-	QString song_thumbnail = file.absoluteFilePath().remove(".mp3") + ".jpg";
+	QString song_thumbnail_jpg = file.absoluteFilePath().remove( ".mp3" ) + ".jpg";
+	QString song_thumbnail_png = file.absoluteFilePath().remove( ".mp3" ) + ".png";
 
-	QFile::remove( song_thumbnail );
+	QFile::remove( song_thumbnail_jpg );
+	QFile::remove( song_thumbnail_png );
 	QFile::remove( file.absoluteFilePath() );
 
 	refresh_list();

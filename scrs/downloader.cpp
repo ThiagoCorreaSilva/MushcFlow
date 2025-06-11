@@ -44,13 +44,16 @@ void Downloader::on_download_button_clicked()
 
 void Downloader::start_download()
 {
-	ui->status_label->setText( tr("Working... WAIT!") );
+	ui->status_label->setText( tr( "Working... WAIT!" ) );
 
-	qDebug() << "started";
+	qDebug();
+	qDebug() << "DOWNLOAD STARTED!";
+
 	QString system_type = QSysInfo::productType();
 	QString yt_dlp_binary = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
 	QString yt_dlp_flags = yt_dlp_binary + " --ies all,-generic ";
-	QString yt_dlp_download_thumb = "--write-thumbnail --convert-thumbnails jpg --ppa \"ThumbnailsConvertor:-q:v 1\" ";
+	QString yt_dlp_thumbnail_format = ui->thumbnail_format->currentText();
+	QString yt_dlp_download_thumb = "--write-thumbnail --convert-thumbnails " + yt_dlp_thumbnail_format + " --ppa \"ThumbnailsConvertor:-q:v 1\" ";
 	QString yt_dlp_song_format = "-x --audio-format mp3 -o ";
 	QString yt_dlp_path = "\"" + m_songs_dir_path + "/%(title)s.%(ext)s\" ";
 	QString yt_dlp_url = ui->url_input->text();
@@ -60,6 +63,13 @@ void Downloader::start_download()
 	ui->url_input->setReadOnly( true );
 	ui->url_input->clear();
 	ui->url_input->setFocus();
+
+	QMap< QString, QString > debug_content;
+	debug_content[ "system_type" ] = system_type;
+	debug_content[ "thumbnail_format" ] = yt_dlp_thumbnail_format;
+	debug_content[ "song_path" ] = yt_dlp_path;
+	debug_content[ "song_url" ] = yt_dlp_url;
+	debug( debug_content );
 
 	QProcess process;
 	process.startCommand( command );
@@ -75,4 +85,13 @@ void Downloader::start_download()
 
     ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
 	ui->url_input->setReadOnly( false );
+}
+
+void Downloader::debug( const QMap< QString, QString > &content )
+{
+	qDebug() << "SYSTEM_TYPE_______: " << content.value( "system_type" );
+	qDebug() << "THUMBNAIL_FORMAT__: " << content.value( "thumbnail_format" );
+	qDebug() << "SONG_PATH_________: " << content.value( "song_path" );
+	qDebug() << "SONG_URL__________: " << content.value( "song_url" );
+	qDebug();
 }

@@ -34,5 +34,7 @@ class Downloader : public QDialog
 
 		void read_config_file();
 		void start_download();
+
+		void debug( const QMap< QString, QString > &content );
 };
 

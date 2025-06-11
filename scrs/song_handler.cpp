@@ -50,13 +50,15 @@ void Song_handler::randomize_playlist_index()
 	std::random_shuffle( m_random_index.begin(), m_random_index.end());
 }
 
-void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label )
+void Song_handler::set_ui_elements( QLabel &song_label, QSlider &position_slider, QLabel &duration_label, QLabel &position_label, QTabWidget &tab_widget )
 {
 	m_song_label = &song_label;
 	m_position_slider = &position_slider;
 
 	m_duration_label = &duration_label;
 	m_position_label = &position_label;
+
+	m_tab_widget = &tab_widget;
 }
 
 void Song_handler::play_song( const QFileInfo &song_file )
@@ -67,6 +69,7 @@ void Song_handler::play_song( const QFileInfo &song_file )
 	m_song_label->setText( m_player->source().fileName().remove(".mp3") );
 	m_position_slider->setValue( 0 );
 
+	m_tab_widget->setCurrentIndex( 0 );
 	m_player->setPlaybackRate( m_song_speed );
 	m_player->play();
 }

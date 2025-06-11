@@ -38,18 +38,12 @@ void Downloader::on_download_button_clicked()
 		return;
 	}
 
-	QtConcurrent::run( QThreadPool::globalInstance(), [this]{ start_download() ;} );
+	start_download();
+	Song_folder_manager::get_Instance().refresh_list();
 }
 
 void Downloader::start_download()
 {
-	static bool on_download = false;
-	if (on_download)
-	{
-		return;
-	}
-
-	on_download = true;
 	ui->status_label->setText( tr("Working... WAIT!") );
 
 	qDebug() << "started";
@@ -73,8 +67,6 @@ void Downloader::start_download()
 
 	if (process.exitCode() != 0)
 	{
-		on_download = false;
-
 		ui->status_label->setText( "ERROR!" );
 		ui->url_input->setReadOnly( false );
 
@@ -83,6 +75,4 @@ void Downloader::start_download()
 
     ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
 	ui->url_input->setReadOnly( false );
-
-	on_download = false;
 }

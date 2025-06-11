@@ -7,10 +7,14 @@
 
 #include <QMessageBox>
 #include <QTranslator>
+#include <QWidget>
+#include <QLabel>
 
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QVector>
+
+#include <source_location>
 
 #include "config_file_handler.hpp"
 #include "song_handler.hpp";
@@ -25,11 +29,14 @@ class Song_folder_manager
 		QString m_song_dir_path;
 		QVector < QPushButton* > m_songs_buttons;
 
+		QWidget *m_container;
 		QVBoxLayout *m_layout;
+		QLabel *m_song_count_label;
 
 		void add_pix_map( QPushButton &button );
 		void create_button( const QString &name );
 		void button_pressed( const QString &name );
+		void delete_song( const QFileInfo &file );
 
 	public:
 		static Song_folder_manager &get_Instance()
@@ -39,5 +46,7 @@ class Song_folder_manager
 		}
 
 		void set_layout( QVBoxLayout *layout );
+		void set_container( QWidget *container );
+		void set_label( QLabel *label );
 		QVector< QPushButton* > &refresh_list();
 };

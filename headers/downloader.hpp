@@ -9,6 +9,7 @@
 #include <QFile>
 
 #include "config_file_handler.hpp"
+#include "song_folder_manager.hpp"
 #include "logs.hpp"
 
 namespace Ui {

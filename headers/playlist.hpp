@@ -2,16 +2,9 @@
 
 #include <QDialog>
 
-#include <QFileSystemWatcher>
 #include <QAbstractButton>
 #include <QVBoxLayout>
-#include <QPushButton>
-#include <QVariantMap>
-#include <QMessageBox>
 #include <QFileInfo>
-#include <QPalette>
-#include <QPixmap>
-#include <QWidget>
 #include <QFile>
 
 #include <optional>
@@ -32,8 +25,6 @@ class Playlist : public QDialog
 	public:
 		explicit Playlist(QWidget *parent = nullptr);
 		~Playlist();
-
-		void refresh_songs_list();
 
 	private slots:
 		void on_play_pause_button_clicked();
@@ -59,20 +50,10 @@ class Playlist : public QDialog
 
 		void make_class_configs();
 		void set_thumbnail_show_state();
-		void config_watcher_to_songs_dir();
-		void songs_dir_watcher_event();
-		void set_pix_map( QPushButton &button, const QString &path );
-		void button_action( QFileInfo &song_info );
-		void play_song( const QFileInfo &song_info );
-		void delete_song( QFileInfo &song_info );
-		void remove_image_from_button();
-		void add_image_in_button();
+		void config_song_handler();
 
 		QWidget *m_container;
 		QVBoxLayout *m_layout;
-		QFileSystemWatcher m_watcher;
-		//Song_handler m_song_handler;
-		QVector < QPushButton *> m_songs_button;
 
 		QString m_songs_dir_path;
 		bool m_show_thumbnail = false;

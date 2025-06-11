@@ -26,6 +26,8 @@ class First_Open_Config : public QDialog
         explicit First_Open_Config(QWidget *parent = nullptr);
         ~First_Open_Config();
 
+        QStringList get_json_names();
+
     private slots:
         void on_select_folder_button_clicked();
 
@@ -36,10 +38,17 @@ class First_Open_Config : public QDialog
 
         const QString m_app_dir_name = "MushcFlow";
         const QString m_songs_dir_name = "Songs";
+        const QString m_thumbnails_dir_name = "Thumbnails";
+
+        const QString m_app_dir_json = "app_dir";
+        const QString m_songs_dir_json = "songs_dir";
+        const QString m_thumbnails_dir_json = "thumbnails_dir";
+        const QString m_use_thumbnail_json = "use_thumbnail";
+        const QString m_thumbnail_format_json = "thumbnail_format";
 
         QString m_app_dir_path;
         QString m_songs_dir_path;
-        QString m_app_language;
+        QString m_thumbnails_dir_path;
 
         void create_config_file();
         void create_app_directories();

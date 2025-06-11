@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     setFixedSize( 500, 250 );
 
-    open_configuration_window();
+    make_configurations();
     set_tab_widgets();
 }
 
@@ -32,17 +32,23 @@ void MainWindow::centralize_window( QApplication &app )
     setGeometry( (screen_width / 2) - (width / 2), (screen_height / 2) - (height / 2), width, height );
 }
 
-void MainWindow::open_configuration_window()
+void MainWindow::make_configurations()
 {
-    if (QFile::exists( "configs.json" ))
-    {
-        return;
-    }
-
     First_Open_Config first_time_window;
     first_time_window.setModal( true );
     first_time_window.setFixedSize( 600, 250 );
-    first_time_window.exec();
+
+    if (!QFile::exists( "configs.json" ))
+    {
+        first_time_window.exec();
+
+        return;
+    }
+
+    if (!Config_file_handler::get_Instance().check_config_file( first_time_window.get_json_names() ))
+    {
+        first_time_window.exec();
+    }
 }
 
 void MainWindow::set_tab_widgets()

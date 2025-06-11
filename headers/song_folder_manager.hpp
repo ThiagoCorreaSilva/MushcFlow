@@ -33,8 +33,9 @@ class Song_folder_manager
 		QVBoxLayout *m_layout;
 		QLabel *m_song_count_label;
 
-		void add_pix_map( QPushButton &button );
+		void move_thumbnails();
 		void create_button( const QString &name );
+		void add_pix_map( QPushButton &button );
 		void button_pressed( const QString &name );
 		void delete_song( const QFileInfo &file );
 

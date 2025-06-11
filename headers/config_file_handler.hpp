@@ -31,7 +31,8 @@ class Config_file_handler
 		}
 
 		void write_values( const QMap< QString, QString> &values_to_write );
+		void update_value( const QString &name, const QString &value );
+		bool check_config_file( const QStringList &keys_to_check );
 		std::optional<QMap< QString, QString >> get_values( const QStringList &values_to_read );
 		QString get_value( const QString &value_to_read );
-		void update_value( const QString &name, const QString &value );
 };

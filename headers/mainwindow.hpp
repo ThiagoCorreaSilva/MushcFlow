@@ -22,6 +22,6 @@ class MainWindow : public QMainWindow
 
     private:
         Ui::MainWindow *ui;
-        void open_configuration_window();
+        void make_configurations();
         void set_tab_widgets();
 };

@@ -49,6 +49,8 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 	// Delete all childrens in m_container (who have a QVBoxLayout)
 	qDeleteAll( m_container->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly) );
 
+	move_thumbnails();
+
 	for ( auto &file : std::as_const( files ) )
 	{
 		create_button( file.fileName().remove( ".mp3" ) );
@@ -60,6 +62,26 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 	}
 
 	return m_songs_buttons;
+}
+
+void Song_folder_manager::move_thumbnails()
+{
+	QString thumbnails_path = Config_file_handler::get_Instance().get_value( "thumbnails_dir" );
+
+	if (thumbnails_path.isEmpty())
+	{
+		qDebug() << "EMPTY THUMBNAIL PATH!";
+		return;
+	}
+
+	QDir thumbnails_dir( thumbnails_path );
+	QFileInfoList thumbs = thumbnails_dir.entryInfoList( {"*.png", "*.jpg"});
+
+	for ( auto &thumb : thumbs )
+	{
+		QString previous_name = thumb.fileName();
+		QFile::rename( thumb.absoluteFilePath(), thumbnails_path + '/' + previous_name );
+	}
 }
 
 void Song_folder_manager::create_button( const QString &name )

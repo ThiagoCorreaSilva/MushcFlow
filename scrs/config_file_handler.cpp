@@ -5,6 +5,49 @@ Config_file_handler::Config_file_handler()
 	m_config_file.setFileName( m_config_file_name );
 }
 
+bool Config_file_handler::check_config_file( const QStringList &keys_to_check )
+{
+	if (!m_config_file.open( QFile::ReadOnly ))
+	{
+		QString error_1 = "ERROR IN OPENING CONFIG_FILE";
+		QString error_2 = "PLEASE, TRY AGAIN!";
+
+		Logs::get_Instance().create_log( {error_1, error_2} );
+		m_config_file.remove();
+
+		return false;
+	}
+
+	QByteArray buffer = m_config_file.readAll();
+	m_config_file.close();
+
+	QJsonParseError error;
+	QJsonDocument document = QJsonDocument::fromJson( buffer, &error );
+
+	if (error.error != QJsonParseError::NoError)
+	{
+		QString error_1 = "ERROR IN READING JSON DATA FROM CONFIG FILE!";
+		QString error_2 = error.errorString();
+
+		Logs::get_Instance().create_log( {error_1, error_2} );
+
+		return false;
+	}
+
+	QJsonObject object = document.object();
+
+	for ( const QString &key : keys_to_check )
+	{
+		if (!object.contains( key ))
+		{
+			qDebug() << "KEY: " << key << "DONT EXISTS!";
+			return false;
+		}
+	}
+
+	return true;
+}
+
 void Config_file_handler::write_values( const QMap< QString, QString > &values_to_write )
 {
 	if (!m_config_file.open( QFile::WriteOnly ))
@@ -120,7 +163,7 @@ std::optional<QMap< QString, QString >> Config_file_handler::get_values( const Q
 
 	for ( const QString &value : values_to_read )
 	{
-		if (object.value(value).isUndefined())
+		if (object.value( value ).isUndefined())
 		{
 			qDebug() << "INVALID VALUE PASSED!";
 			return {};

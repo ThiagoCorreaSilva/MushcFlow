@@ -19,7 +19,6 @@ enum class VALUE
 	THUMBNAILS_DIR,
 	USE_THUMBNAIL,
 	THUMBNAIL_FORMAT,
-	ALL
 };
 
 class Config_file_handler

@@ -56,6 +56,6 @@ class Playlist : public QDialog
 		QVBoxLayout *m_layout;
 
 		QString m_songs_dir_path;
-		bool m_show_thumbnail = false;
+		bool m_show_thumbnail;
 };
 

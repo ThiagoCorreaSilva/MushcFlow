@@ -175,7 +175,7 @@ std::optional<QMap< QString, QString >> Config_file_handler::get_values( const Q
 	return values;
 }
 
-QString Config_file_handler::get_value( const QString &value_to_read )
+QString Config_file_handler::get_value( const VALUE &value_to_read )
 {
 	if (!m_config_file.open( QFile::ReadOnly ))
 	{
@@ -201,5 +201,26 @@ QString Config_file_handler::get_value( const QString &value_to_read )
 	}
 
 	QJsonObject object = document.object();
-	return object.value( value_to_read ).toString();
+	return object.value( enum_to_string( value_to_read ) ).toString();
+}
+
+QString Config_file_handler::enum_to_string( const VALUE &value )
+{
+	switch ( value )
+	{
+		case VALUE::APP_DIR:
+			return "app_dir";
+
+		case VALUE::SONGS_DIR:
+			return "songs_dir";
+
+		case VALUE::THUMBNAILS_DIR:
+			return "thumbnails_dir";
+
+		case VALUE::USE_THUMBNAIL:
+			return "use_thumbnail";
+
+		case VALUE::THUMBNAIL_FORMAT:
+			return "thumbnail_format";
+	}
 }

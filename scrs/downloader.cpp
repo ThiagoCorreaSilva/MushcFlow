@@ -13,15 +13,20 @@ Downloader::Downloader(QWidget *parent) :
 
 Downloader::~Downloader()
 {
-	Config_file_handler::get_Instance().update_value( "thumbnail_format", ui->thumbnail_format->currentText() );
+	save_thumbnail_format();
 
 	delete ui;
 }
 
+void Downloader::save_thumbnail_format()
+{
+	Config_file_handler::get_Instance().update_value( "thumbnail_format", ui->thumbnail_format->currentText() );
+}
+
 void Downloader::read_config_file()
 {
-	ui->thumbnail_format->setCurrentText( Config_file_handler::get_Instance().get_value( "thumbnail_format" ) );
-	m_songs_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
+	ui->thumbnail_format->setCurrentText( Config_file_handler::get_Instance().get_value( VALUE::THUMBNAIL_FORMAT ) );
+	m_songs_dir_path = Config_file_handler::get_Instance().get_value( VALUE::SONGS_DIR );
 }
 
 void Downloader::on_download_button_clicked()

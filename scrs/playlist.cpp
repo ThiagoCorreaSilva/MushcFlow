@@ -26,16 +26,13 @@ Playlist::~Playlist()
 
 void Playlist::make_class_configs()
 {
-	m_songs_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
+	m_songs_dir_path = Config_file_handler::get_Instance().get_value( VALUE::SONGS_DIR );
 	ui->volume_label->setText( "Volume: " + QString::number( 50 ) );
 
-	m_show_thumbnail = Config_file_handler::get_Instance().get_value( "use_thumbnail" ).toInt();
-	ui->thumbnail_check->setChecked( m_show_thumbnail );
+	Song_folder_manager::get_Instance().refresh_list();
 
-	if (!m_show_thumbnail)
-	{
-		Song_folder_manager::get_Instance().refresh_list();
-	}
+	m_show_thumbnail = Config_file_handler::get_Instance().get_value( VALUE::USE_THUMBNAIL ).toInt();
+	ui->thumbnail_check->setChecked( m_show_thumbnail );
 
 	config_song_handler();
 }
@@ -55,10 +52,10 @@ void Playlist::on_play_pause_button_clicked()
 
 void Playlist::on_thumbnail_check_stateChanged(int state)
 {
-	m_show_thumbnail = ( state == 0) ? 0 : 1;
+	m_show_thumbnail = ( state == 0) ? false : true;
 
 	Config_file_handler::get_Instance().update_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
-	Song_folder_manager::get_Instance().refresh_list();
+	Song_folder_manager::get_Instance().change_thumbnails_state();
 }
 
 void Playlist::on_volume_slider_valueChanged(int value)

@@ -2,8 +2,8 @@
 
 Song_folder_manager::Song_folder_manager()
 {
-	m_song_dir_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
-	m_thumbnail_dir_path = Config_file_handler::get_Instance().get_value( "thumbnails_dir" );
+	m_song_dir_path = Config_file_handler::get_Instance().get_value( VALUE::SONGS_DIR );
+	m_thumbnail_dir_path = Config_file_handler::get_Instance().get_value( VALUE::THUMBNAILS_DIR );
 }
 
 void Song_folder_manager::set_layout( QVBoxLayout *layout )
@@ -21,25 +21,28 @@ void Song_folder_manager::set_label( QLabel *label )
 	m_song_count_label = label;
 }
 
-QVector< QPushButton* > &Song_folder_manager::refresh_list()
+void Song_folder_manager::refresh_list()
 {
 	m_songs_buttons.clear();
+	m_buttons_songs.clear();
+
 	if (m_layout == nullptr)
 	{
 		qDebug() << "NULL LAYOUT!";
-		return m_songs_buttons;
+		return;
 	}
 
 	if (m_container == nullptr)
 	{
 		qDebug() << "NULL CONTAINER";
-		return m_songs_buttons;
+		return;
 	}
 
 	QDir song_dir( m_song_dir_path );
 	if ( !song_dir.exists() )
 	{
-		return m_songs_buttons;
+		qDebug() << "SONG DIRECTORY NOT EXISTS!";
+		return;
 	}
 
 	QFileInfoList files = song_dir.entryInfoList( {"*.mp3"} );
@@ -57,18 +60,18 @@ QVector< QPushButton* > &Song_folder_manager::refresh_list()
 		create_button( file.fileName().remove( ".mp3" ) );
 	}
 
+	change_thumbnails_state();
+
 	if (m_song_count_label != nullptr)
 	{
 		m_song_count_label->setText( QString::number( m_songs_buttons.size() ) );
 	}
-
-	return m_songs_buttons;
 }
 
 void Song_folder_manager::move_thumbnails()
 {
-	QString thumbnails_path = Config_file_handler::get_Instance().get_value( "thumbnails_dir" );
-	QString songs_path = Config_file_handler::get_Instance().get_value( "songs_dir" );
+	QString thumbnails_path = Config_file_handler::get_Instance().get_value( VALUE::THUMBNAILS_DIR );
+	QString songs_path = Config_file_handler::get_Instance().get_value( VALUE::SONGS_DIR );
 
 	QDir songs_dir( songs_path );
 	QFileInfoList thumbs = songs_dir.entryInfoList( {"*.png", "*.jpg"});
@@ -81,8 +84,7 @@ void Song_folder_manager::move_thumbnails()
 
 	for ( auto &thumb : thumbs )
 	{
-		QString previous_name = thumb.fileName();
-		QFile::rename( thumb.absoluteFilePath(), thumbnails_path + '/' + previous_name );
+		QFile::rename( thumb.absoluteFilePath(), thumbnails_path + '/' + thumb.fileName() );
 	}
 }
 
@@ -90,24 +92,23 @@ void Song_folder_manager::create_button( const QString &name )
 {
 	QPushButton *button = new QPushButton( name );
 	button->setFixedSize( 460, 60 );
-	button->setFont( QFont( "Arial" ));
-	button->setStyleSheet( "font: bold; text-decoration: underline;" );
+
+	QFont font( "Arial" );
+	font.setBold( true );
+	font.setUnderline( true );
+	button->setFont( font );
 
 	add_pix_map( *button );
-	QPushButton::connect( button, &QPushButton::clicked, [ this, button ]{ button_pressed( button->text() ); } );
+	button->connect( button, &QPushButton::clicked, [ this, button ]{ button_pressed( button->text() ); } );
 
 	m_songs_buttons.push_back( button );
+	m_buttons_songs.insert( button, button->palette() );
+
 	m_layout->addWidget( button );
 }
 
 void Song_folder_manager::add_pix_map( QPushButton &button )
 {
-	bool use_thumbnail = Config_file_handler::get_Instance().get_value( "use_thumbnail" ).toInt();
-	if (!use_thumbnail)
-	{
-		return;
-	}
-
 	QString image_path = m_thumbnail_dir_path + '/' + button.text();
 
 	if (QFileInfo::exists( image_path + ".jpg" ))
@@ -181,4 +182,21 @@ void Song_folder_manager::delete_song( const QFileInfo &file )
 	QFile::remove( file.absoluteFilePath() );
 
 	refresh_list();
+}
+
+void Song_folder_manager::change_thumbnails_state()
+{
+	bool state = Config_file_handler::get_Instance().get_value( VALUE::USE_THUMBNAIL ).toInt();
+
+	for ( auto [ button, palette ] : m_buttons_songs.asKeyValueRange() )
+	{
+		if (state)
+		{
+			button->setPalette( palette );
+
+			continue;
+		}
+
+		button->setPalette( QPalette() );
+	}
 }

@@ -21,7 +21,6 @@ void Song_handler::set_playlist( const QFileInfoList &playlist )
 	m_max_song_index = m_playlist_songs.size();
 
 	std::random_shuffle( m_playlist_songs.begin(), m_playlist_songs.end() );
-	//randomize_playlist();
 }
 
 void Song_handler::reset_playlist()
@@ -91,16 +90,6 @@ void Song_handler::next_song()
 	}
 
 	m_player->play();
-
-	/*
-	if (m_random_track)
-	{
-		m_current_song_index = get_random_index();
-		play_song( m_playlist_songs.at( m_current_song_index ) );
-
-		return;
-	}
-	*/
 
 	if ((m_current_song_index + 1) == m_max_song_index)
 	{

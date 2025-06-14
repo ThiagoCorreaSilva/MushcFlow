@@ -5,6 +5,8 @@
 #include <QSplashScreen>
 #include <QTimer>
 
+const int DURATION = 1500;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -17,8 +19,9 @@ int main(int argc, char *argv[])
     splash_screen->setPixmap( QPixmap( "MushcFlowLogo.png" ) );
     splash_screen->show();
 
-    QTimer::singleShot( 2000, splash_screen, &QSplashScreen::close );
-    QTimer::singleShot( 2000, &w, &QMainWindow::show );
+
+    QTimer::singleShot( DURATION, splash_screen, &QSplashScreen::close );
+    QTimer::singleShot( DURATION, &w, &QMainWindow::show );
 
     return a.exec();
 }

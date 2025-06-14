@@ -12,6 +12,15 @@
 
 #include "logs.hpp"
 
+enum class VALUE
+{
+	APP_DIR,
+	SONGS_DIR,
+	THUMBNAILS_DIR,
+	USE_THUMBNAIL,
+	THUMBNAIL_FORMAT
+};
+
 class Config_file_handler
 {
 	private:
@@ -21,6 +30,8 @@ class Config_file_handler
 
 		const QString m_config_file_name = "configs.json";
 		QFile m_config_file;
+
+		QString enum_to_string( const VALUE &value );
 
 	public:
 
@@ -34,5 +45,5 @@ class Config_file_handler
 		void update_value( const QString &name, const QString &value );
 		bool check_config_file( const QStringList &keys_to_check );
 		std::optional<QMap< QString, QString >> get_values( const QStringList &values_to_read );
-		QString get_value( const QString &value_to_read );
+		QString get_value( const VALUE &value_to_read );
 };

@@ -20,7 +20,16 @@ Downloader::~Downloader()
 
 void Downloader::save_thumbnail_format()
 {
-	Config_file_handler::get_Instance().update_value( VALUE::THUMBNAIL_FORMAT, ui->thumbnail_format->currentText() );
+	QString previous_value = Config_file_handler::get_Instance().get_value( VALUE::THUMBNAIL_FORMAT );
+	QString new_value = ui->thumbnail_format->currentText();
+
+	if (previous_value == new_value)
+	{
+		qDebug() << "SAME VALUE!";
+		return;
+	}
+
+	Config_file_handler::get_Instance().update_value( VALUE::THUMBNAIL_FORMAT, new_value );
 }
 
 void Downloader::read_config_file()
@@ -33,21 +42,15 @@ void Downloader::on_download_button_clicked()
 {
 	if (ui->url_input->text().isEmpty())
 	{
-		QMessageBox::warning( this, tr("Empty URL!"), tr("You need to put a valid URL!"));
+		QMessageBox::warning( this, tr( "Empty URL!" ), tr( "You need to put a valid URL!" ) );
 		return;
 	}
 
 	start_download();
-	Song_folder_manager::get_Instance().refresh_list();
 }
 
 void Downloader::start_download()
 {
-	ui->status_label->setText( tr( "Working... WAIT!" ) );
-
-	qDebug();
-	qDebug() << "DOWNLOAD STARTED!";
-
 	QString system_type = QSysInfo::productType();
 	QString yt_dlp_binary = (system_type == "windows") ? "yt-dlp.exe" : "yt-dlp";
 	QString yt_dlp_flags = yt_dlp_binary + " --ies all,-generic ";
@@ -63,12 +66,7 @@ void Downloader::start_download()
 	ui->url_input->clear();
 	ui->url_input->setFocus();
 
-	QMap< QString, QString > debug_content;
-	debug_content[ "system_type" ] = system_type;
-	debug_content[ "thumbnail_format" ] = yt_dlp_thumbnail_format;
-	debug_content[ "song_path" ] = yt_dlp_path;
-	debug_content[ "song_url" ] = yt_dlp_url;
-	debug( debug_content );
+	debug( system_type, yt_dlp_thumbnail_format, yt_dlp_url );
 
 	QProcess process;
 	process.startCommand( command );
@@ -82,15 +80,19 @@ void Downloader::start_download()
 		return;
 	}
 
-    ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
+	Song_folder_manager::get_Instance().refresh_list();
+
+	ui->status_label->setText( "DOWNLOAD COMPLETED SUCCESSFULLY!" );
 	ui->url_input->setReadOnly( false );
 }
 
-void Downloader::debug( const QMap< QString, QString > &content )
+void Downloader::debug( const QString &system, const QString &format, const QString &url )
 {
-	qDebug() << "SYSTEM_TYPE_______: " << content.value( "system_type" );
-	qDebug() << "THUMBNAIL_FORMAT__: " << content.value( "thumbnail_format" );
-	qDebug() << "SONG_PATH_________: " << content.value( "song_path" );
-	qDebug() << "SONG_URL__________: " << content.value( "song_url" );
+	qDebug();
+	qDebug() << "DOWNLOAD STARTED!";
+	qDebug() << "SYSTEM_TYPE_______: " << system;
+	qDebug() << "THUMBNAIL_FORMAT__: " << format;
+	qDebug() << "SONG_PATH_________: " << m_songs_dir_path;
+	qDebug() << "SONG_URL__________: " << url;
 	qDebug();
 }

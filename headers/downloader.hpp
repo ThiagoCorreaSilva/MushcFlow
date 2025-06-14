@@ -36,6 +36,6 @@ class Downloader : public QDialog
 		void start_download();
 		void save_thumbnail_format();
 
-		void debug( const QMap< QString, QString > &content );
+		void debug( const QString &system, const QString &format, const QString &url );
 };
 

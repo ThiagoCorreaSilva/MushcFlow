@@ -144,7 +144,7 @@ void Song_folder_manager::button_pressed( const QString &name )
 
 	question_box.setIcon( QMessageBox::Question );
 	question_box.setWindowTitle( QTranslator::tr( "Question!" ) );
-	question_box.setText( QTranslator::tr("What you want to make with: ") + '\n' + song_name );
+	question_box.setText( QTranslator::tr( "What you want to do with: " ) + '\n' + song_name );
 
 	question_box.addButton( QTranslator::tr( "Play" ), QMessageBox::AcceptRole );
 	question_box.addButton( QTranslator::tr( "Nothing" ), QMessageBox::RejectRole );

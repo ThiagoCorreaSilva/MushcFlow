@@ -54,7 +54,7 @@ void Playlist::on_thumbnail_check_stateChanged(int state)
 {
 	m_show_thumbnail = ( state == 0) ? false : true;
 
-	Config_file_handler::get_Instance().update_value( "use_thumbnail", QString::number( m_show_thumbnail ) );
+	Config_file_handler::get_Instance().update_value( VALUE::USE_THUMBNAIL, QString::number( m_show_thumbnail ) );
 	Song_folder_manager::get_Instance().change_thumbnails_state();
 }
 

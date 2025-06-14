@@ -18,7 +18,8 @@ enum class VALUE
 	SONGS_DIR,
 	THUMBNAILS_DIR,
 	USE_THUMBNAIL,
-	THUMBNAIL_FORMAT
+	THUMBNAIL_FORMAT,
+	ALL
 };
 
 class Config_file_handler
@@ -42,7 +43,7 @@ class Config_file_handler
 		}
 
 		void write_values( const QMap< QString, QString> &values_to_write );
-		void update_value( const QString &name, const QString &value );
+		void update_value( const VALUE &name, const QString &value );
 		bool check_config_file( const QStringList &keys_to_check );
 		std::optional<QMap< QString, QString >> get_values( const QStringList &values_to_read );
 		QString get_value( const VALUE &value_to_read );

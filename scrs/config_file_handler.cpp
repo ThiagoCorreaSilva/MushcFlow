@@ -75,7 +75,7 @@ void Config_file_handler::write_values( const QMap< QString, QString > &values_t
 	m_config_file.close();
 }
 
-void Config_file_handler::update_value( const QString &name, const QString &value )
+void Config_file_handler::update_value( const VALUE &name, const QString &value )
 {
 	if (!m_config_file.open( QFile::ReadWrite ))
 	{
@@ -104,13 +104,15 @@ void Config_file_handler::update_value( const QString &name, const QString &valu
 	}
 
 	QJsonObject object = document.object();
-	QJsonValueRef value_ref = object.find( name ).value();
 
-	if (object.find( name ).value().isUndefined())
+	QString value_name = enum_to_string( name );
+	QJsonValueRef value_ref = object.find( value_name ).value();
+
+	if (object.find( value_name ).value().isUndefined())
 	{
-		qDebug() << "CREATED IN CONFIG FILE: " << name;
+		qDebug() << "CREATED IN CONFIG FILE: " << value_name;
 
-		object.insert( name, value );
+		object.insert( value_name, value );
 		document.setObject( object );
 
 		m_config_file.seek( 0 );
@@ -127,7 +129,7 @@ void Config_file_handler::update_value( const QString &name, const QString &valu
 	m_config_file.write( document.toJson() );
 	m_config_file.close();
 
-	qDebug() << "OBJECT CHANGED: " << name << " NEW VALUE: " << value;
+	qDebug() << "OBJECT CHANGED: " << value_name << " NEW VALUE: " << value;
 }
 
 std::optional<QMap< QString, QString >> Config_file_handler::get_values( const QStringList &values_to_read )

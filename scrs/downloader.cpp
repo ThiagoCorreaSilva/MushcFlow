@@ -20,7 +20,7 @@ Downloader::~Downloader()
 
 void Downloader::save_thumbnail_format()
 {
-	Config_file_handler::get_Instance().update_value( "thumbnail_format", ui->thumbnail_format->currentText() );
+	Config_file_handler::get_Instance().update_value( VALUE::THUMBNAIL_FORMAT, ui->thumbnail_format->currentText() );
 }
 
 void Downloader::read_config_file()

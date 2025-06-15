@@ -23,7 +23,6 @@ void Song_folder_manager::set_label( QLabel *label )
 
 void Song_folder_manager::refresh_list()
 {
-	m_songs_buttons.clear();
 	m_buttons_songs.clear();
 
 	if (m_layout == nullptr)
@@ -64,7 +63,7 @@ void Song_folder_manager::refresh_list()
 
 	if (m_song_count_label != nullptr)
 	{
-		m_song_count_label->setText( QString::number( m_songs_buttons.size() ) );
+		m_song_count_label->setText( QString::number( m_buttons_songs.size() ) );
 	}
 }
 
@@ -101,7 +100,6 @@ void Song_folder_manager::create_button( const QString &name )
 	add_pix_map( *button );
 	button->connect( button, &QPushButton::clicked, [ this, button ]{ button_pressed( button->text() ); } );
 
-	m_songs_buttons.push_back( button );
 	m_buttons_songs.insert( button, button->palette() );
 
 	m_layout->addWidget( button );

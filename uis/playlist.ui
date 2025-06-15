@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>500</width>
-    <height>250</height>
+    <height>239</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>501</width>
-     <height>251</height>
+     <width>500</width>
+     <height>240</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -73,7 +73,7 @@
     <widget class="QFrame" name="frame_3">
      <property name="geometry">
       <rect>
-       <x>5</x>
+       <x>0</x>
        <y>85</y>
        <width>496</width>
        <height>51</height>
@@ -97,6 +97,7 @@
       <property name="font">
        <font>
         <pointsize>20</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="autoFillBackground">
@@ -133,6 +134,7 @@
       <property name="font">
        <font>
         <pointsize>20</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="autoFillBackground">
@@ -169,6 +171,7 @@
       <property name="font">
        <font>
         <pointsize>20</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="autoFillBackground">
@@ -196,9 +199,9 @@
      <widget class="QComboBox" name="speed_combo">
       <property name="geometry">
        <rect>
-        <x>84</x>
+        <x>74</x>
         <y>10</y>
-        <width>66</width>
+        <width>71</width>
         <height>31</height>
        </rect>
       </property>
@@ -271,7 +274,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>91</width>
+        <width>71</width>
         <height>51</height>
        </rect>
       </property>
@@ -337,7 +340,7 @@
        <property name="geometry">
         <rect>
          <x>5</x>
-         <y>11</y>
+         <y>10</y>
          <width>136</width>
          <height>51</height>
         </rect>
@@ -533,7 +536,7 @@
        <x>-20</x>
        <y>-20</y>
        <width>521</width>
-       <height>51</height>
+       <height>46</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -548,7 +551,7 @@
         <x>180</x>
         <y>20</y>
         <width>131</width>
-        <height>31</height>
+        <height>26</height>
        </rect>
       </property>
       <property name="font">
@@ -577,7 +580,7 @@
         <x>320</x>
         <y>20</y>
         <width>51</width>
-        <height>31</height>
+        <height>26</height>
        </rect>
       </property>
       <property name="font">
@@ -607,7 +610,7 @@
         <x>370</x>
         <y>20</y>
         <width>141</width>
-        <height>31</height>
+        <height>21</height>
        </rect>
       </property>
       <property name="font">
@@ -637,11 +640,23 @@
     <widget class="QLineEdit" name="search_label">
      <property name="geometry">
       <rect>
-       <x>157</x>
-       <y>30</y>
-       <width>166</width>
-       <height>26</height>
+       <x>147</x>
+       <y>25</y>
+       <width>201</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="placeholderText">
+      <string notr="true">search song! 🎵</string>
      </property>
     </widget>
    </widget>

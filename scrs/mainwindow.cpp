@@ -3,7 +3,7 @@
 
 #include "../headers/config_file_handler.hpp"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow( QWidget *parent )
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -20,12 +20,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::centralize_window( QApplication &app )
+void MainWindow::set_app( QApplication *app )
 {
+    this->app = app;
+}
+
+void MainWindow::centralize_window()
+{
+    if (app == nullptr)
+    {
+        qDebug() << "NULL APPLICATION IN MAIN WINDOW!";
+        return;
+    }
+
     int width = frameGeometry().width();
     int height = frameGeometry().height();
 
-    QScreen *screen = app.primaryScreen();
+    QScreen *screen = app->primaryScreen();
     int screen_width = screen->geometry().width();
     int screen_height = screen->geometry().height();
 
@@ -55,4 +66,5 @@ void MainWindow::set_tab_widgets()
 {
     ui->tabWidget->addTab( new Playlist(), "Player" );
     ui->tabWidget->addTab( new Downloader(), "Downloader" );
+    //ui->tabWidget->addTab( new Theme( ui->tabWidget, app ), "Theme" );
 }

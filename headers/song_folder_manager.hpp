@@ -52,4 +52,5 @@ class Song_folder_manager
 		void set_label( QLabel *label );
 		void refresh_list();
 		void change_thumbnails_state();
+		void search_song( const QString &text );
 };

@@ -490,8 +490,8 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>30</y>
-       <width>491</width>
+       <y>55</y>
+       <width>496</width>
        <height>160</height>
       </rect>
      </property>
@@ -502,7 +502,7 @@
       </sizepolicy>
      </property>
      <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
+      <enum>QFrame::Shape::Box</enum>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
@@ -521,8 +521,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>491</width>
-        <height>160</height>
+        <width>492</width>
+        <height>156</height>
        </rect>
       </property>
      </widget>
@@ -633,6 +633,16 @@
        <bool>false</bool>
       </property>
      </widget>
+    </widget>
+    <widget class="QLineEdit" name="search_label">
+     <property name="geometry">
+      <rect>
+       <x>157</x>
+       <y>30</y>
+       <width>166</width>
+       <height>26</height>
+      </rect>
+     </property>
     </widget>
    </widget>
   </widget>

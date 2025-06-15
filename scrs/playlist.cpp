@@ -93,3 +93,9 @@ void Playlist::on_position_slider_sliderMoved(int position)
 {
 	Song_handler::get_Instance().change_song_position( position );
 }
+
+void Playlist::on_search_label_textChanged(const QString &arg1)
+{
+	Song_folder_manager::get_Instance().search_song( arg1 );
+}
+

@@ -152,7 +152,6 @@ void Song_folder_manager::button_pressed( const QString &name )
 
 	static const int ACCEPT_ROLE = 2;
 	static const int DELETE_ROLE = 4;
-
 	QFileInfo file( m_song_dir_path + '/' + name + ".mp3"  );
 
 	switch ( result )
@@ -162,6 +161,7 @@ void Song_folder_manager::button_pressed( const QString &name )
 			break;
 
 		case DELETE_ROLE:
+
 			delete_song( file );
 			break;
 	}
@@ -196,5 +196,25 @@ void Song_folder_manager::change_thumbnails_state()
 		}
 
 		button->setPalette( QPalette() );
+	}
+}
+
+void Song_folder_manager::search_song( const QString &text )
+{
+	for ( auto [ button, palette ] : m_buttons_songs.asKeyValueRange() )
+	{
+		if (text.isEmpty())
+		{
+			button->setVisible( true );
+			continue;
+		}
+
+		if (!button->text().contains( text, Qt::CaseInsensitive ))
+		{
+			button->setVisible( false );
+			continue;
+		}
+
+		button->setVisible( true );
 	}
 }

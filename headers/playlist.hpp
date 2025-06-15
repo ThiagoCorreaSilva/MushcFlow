@@ -45,6 +45,8 @@ class Playlist : public QDialog
 
 		void on_position_slider_sliderMoved(int position);
 
+		void on_search_label_textChanged(const QString &arg1);
+
 	private:
 		Ui::Playlist *ui;
 
